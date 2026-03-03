@@ -1267,6 +1267,22 @@ box-shadow:0 2px 8px rgba(0,0,0,0.05);
   color:#fff;
   font-weight:bold;
 }
+
+.news-scroll-box{
+  max-height: 420px;       /* ← 好きな高さに調整可 */
+  overflow-y: auto;
+  padding-right: 4px;      /* スクロールバー余白 */
+}
+
+/* スクロールバー少し整える（任意） */
+.news-scroll-box::-webkit-scrollbar{
+  width:6px;
+}
+
+.news-scroll-box::-webkit-scrollbar-thumb{
+  background:#ccc;
+  border-radius:3px;
+}
   
 </style>
 </head>
@@ -2736,7 +2752,10 @@ function loadNews(){
           </span>
           ドズル社の最新ニュース
         </div>
-        ${html}
+
+        <div class="news-scroll-box">
+          ${html}
+        </div>
       `;
     }else{
       document.getElementById("newsBox").innerHTML = "";
@@ -2828,31 +2847,6 @@ loadTodayContent();
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
