@@ -1269,9 +1269,14 @@ box-shadow:0 2px 8px rgba(0,0,0,0.05);
 }
 
 .news-scroll-box{
-  max-height: 420px;       /* ← 好きな高さに調整可 */
+  max-height: 300px;        /* ← 今より少し低めに */
   overflow-y: auto;
-  padding-right: 4px;      /* スクロールバー余白 */
+
+  border: 1px solid #ddd;   /* 枠線 */
+  border-radius: 12px;      /* 角丸 */
+  background: #fff;         /* 背景白 */
+  padding: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
 /* スクロールバー少し整える（任意） */
@@ -2847,6 +2852,7 @@ loadTodayContent();
 
 </body>
 </html>
+
 
 
 
