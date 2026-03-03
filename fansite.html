@@ -570,6 +570,15 @@ box-shadow:0 2px 8px rgba(0,0,0,0.05);
   margin-bottom:20px;
 }
 
+@media(max-width:768px){
+
+  .latest-countdown{
+    font-size: clamp(14px, 4.5vw, 20px);
+    flex-wrap: nowrap;          /* 2段にしない */
+  }
+
+}
+  
 #latestEvent .latest-wrapper{
   border-left:6px solid #ff8800;
 }
@@ -2863,6 +2872,7 @@ loadTodayContent();
 
 </body>
 </html>
+
 
 
 
