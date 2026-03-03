@@ -468,14 +468,14 @@ box-shadow:0 2px 8px rgba(0,0,0,0.05);
   .event-links{
     display:flex;
     gap:8px;
-    flex-wrap:wrap;           /* 折り返しOKにする */
+    justify-content:center;  /* 中央寄せ */
   }
 
   .event-link-btn{
-    flex:none;                /* ← これ重要 */
-    width:120px;              /* ← 固定幅 */
+    flex:none;               /* ← これ重要 */
+    padding:8px 12px;        /* 少しだけ小さめ */
     text-align:center;
-    white-space:nowrap;
+    white-space:nowrap;      /* 折り返さない */
   }
 
 }
@@ -2864,6 +2864,7 @@ loadTodayContent();
 
 </body>
 </html>
+
 
 
 
