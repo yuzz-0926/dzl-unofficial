@@ -967,12 +967,16 @@ box-shadow:0 2px 8px rgba(0,0,0,0.05);
 .news-card{
   background:#fff;
   border-left:4px solid #d60000;
-  padding:16px;
-  margin-bottom:16px;
-  border-radius:8px;
-  box-shadow:0 2px 6px rgba(0,0,0,0.08);
+  padding:12px;
+  margin-bottom:12px;
+  border-radius:10px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.05);
 }
 
+.news-card:last-child{
+  margin-bottom:0;
+}
+  
 /* 上部ヘッダー */
 .news-header{
   display:flex;
@@ -1269,13 +1273,13 @@ box-shadow:0 2px 8px rgba(0,0,0,0.05);
 }
 
 .news-scroll-box{
-  max-height: 300px;        /* ← 今より少し低めに */
+  max-height: 260px;          /* さっきより少し低め */
   overflow-y: auto;
 
-  border: 1px solid #ddd;   /* 枠線 */
-  border-radius: 12px;      /* 角丸 */
-  background: #fff;         /* 背景白 */
-  padding: 12px;
+  background:#f7f7f7;         /* ← ここを変更 */
+  border:1px solid #ddd;
+  border-radius:12px;
+  padding:12px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
@@ -2677,7 +2681,12 @@ function loadNews(){
 
     const data = parseCSV(text);
     if(!data.length) return;
-
+    
+    // 開始日が今日に近い順（新しい順）
+    data.sort((a,b)=>{
+      return new Date(b.start_date) - new Date(a.start_date);
+    });
+    
     const todayStr = new Date().toLocaleDateString("sv-SE", {
       timeZone: "Asia/Tokyo"
     });
@@ -2852,6 +2861,7 @@ loadTodayContent();
 
 </body>
 </html>
+
 
 
 
