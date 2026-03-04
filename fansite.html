@@ -1335,11 +1335,6 @@ box-shadow:0 2px 8px rgba(0,0,0,0.05);
   margin-bottom:15px;
 }
 
-.calendar-modal-content label{
-  display:block;
-  margin-bottom:8px;
-}
-
 .calendar-btn{
   display:inline-flex;
   align-items:center;
@@ -1436,6 +1431,53 @@ box-shadow:0 2px 8px rgba(0,0,0,0.05);
     align-self:flex-start;
   }
 
+}
+
+.calendar-modal-header{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-weight:bold;
+  font-size:16px;
+  margin-bottom:15px;
+}
+
+.calendar-target{
+  margin-bottom:15px;
+}
+
+.calendar-label{
+  font-size:13px;
+  color:#666;
+  margin-bottom:4px;
+}
+
+.calendar-title-box{
+  background:#f1f3f4;
+  padding:10px;
+  border-radius:8px;
+  font-weight:600;
+  font-size:14px;
+  word-break:break-word;
+}
+
+.calendar-option-label{
+  margin:10px 0 8px;
+  font-size:13px;
+  color:#666;
+}
+
+.calendar-modal-content label{
+  display:block;
+  margin-bottom:8px;
+  cursor:pointer;
+  font-size:14px;
+}
+
+.calendar-modal-content label span{
+  color:#555;
+  font-size:13px;
+  margin-left:4px;
 }
   
 </style>
@@ -3015,8 +3057,28 @@ function getGoodsSaleStatus(start, end){
 
 let calendarData = {};
 
+function formatJP(dateStr){
+  if(!dateStr) return "";
+  const date = new Date(dateStr + "T00:00:00+09:00");
+  return date.toLocaleDateString("ja-JP");
+}
+
 function openCalendarModal(title,start,end,location,details){
+
   calendarData = { title, start, end, location, details };
+
+  document.getElementById("calendarTitle").innerText = title;
+
+  const startText = start ? `(${formatJP(start)})` : "";
+  const endText   = end ? `(${formatJP(end)})` : "";
+  const periodText = (start && end)
+    ? `(${formatJP(start)}〜${formatJP(end)})`
+    : startText;
+
+  document.getElementById("startDateText").innerText = startText;
+  document.getElementById("endDateText").innerText = endText;
+  document.getElementById("periodText").innerText = periodText;
+
   document.getElementById("calendarModal").classList.add("active");
 }
 
@@ -3101,21 +3163,38 @@ loadTodayContent();
 <div id="calendarModal" class="calendar-modal">
   <div class="calendar-modal-content">
 
-    <h3>追加方法を選んでください</h3>
+    <div class="calendar-modal-header">
+      <span class="material-symbols-outlined">
+        event_available
+      </span>
+      Googleカレンダーに追加する
+    </div>
+
+    <div class="calendar-target">
+      <div class="calendar-label">追加するタイトル:</div>
+      <div id="calendarTitle" class="calendar-title-box"></div>
+    </div>
+
+    <div class="calendar-option-label">
+      期間の追加方法の選択:
+    </div>
 
     <label>
       <input type="radio" name="calType" value="start" checked>
       開始日に追加
+      <span id="startDateText"></span>
     </label>
 
     <label>
       <input type="radio" name="calType" value="end">
       終了日に追加
+      <span id="endDateText"></span>
     </label>
 
     <label>
       <input type="radio" name="calType" value="period">
       開催期間で追加
+      <span id="periodText"></span>
     </label>
 
     <div class="modal-actions">
@@ -3128,6 +3207,7 @@ loadTodayContent();
   
 </body>
 </html>
+
 
 
 
