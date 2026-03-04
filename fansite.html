@@ -3087,23 +3087,33 @@ function closeCalendarModal(){
 }
 
 function formatAllDay(dateStr, addDay=false){
-  if(!dateStr) return "";
+  if(!dateStr || dateStr.trim()==="") return "";
 
-  const date = new Date(dateStr + "T00:00:00+09:00");
+  // YYYY-MM-DD のみ取得
+  const clean = dateStr.trim().split("T")[0];
+
+  let [y,m,d] = clean.split("-").map(Number);
 
   if(addDay){
+    const date = new Date(y, m-1, d);
     date.setDate(date.getDate() + 1);
+    y = date.getFullYear();
+    m = date.getMonth() + 1;
+    d = date.getDate();
   }
 
-  return date.toISOString().split("T")[0].replace(/-/g,"");
+  const mm = String(m).padStart(2,"0");
+  const dd = String(d).padStart(2,"0");
+
+  return `${y}${mm}${dd}`;
 }
 
 function addToGoogleCalendar(){
 
   const type = document.querySelector('input[name="calType"]:checked').value;
 
-  let start = calendarData.start;
-  let end   = calendarData.end;
+  const start = calendarData.start;
+  const end   = calendarData.end;
 
   let dates = "";
 
@@ -3132,8 +3142,8 @@ function addToGoogleCalendar(){
     "https://www.google.com/calendar/render?action=TEMPLATE" +
     "&text=" + encodeURIComponent(calendarData.title) +
     "&dates=" + dates +
-    "&details=" + encodeURIComponent(calendarData.details) +
-    "&location=" + encodeURIComponent(calendarData.location);
+    "&details=" + encodeURIComponent(calendarData.details || "") +
+    "&location=" + encodeURIComponent(calendarData.location || "");
 
   window.open(url,"_blank");
 
@@ -3207,6 +3217,7 @@ loadTodayContent();
   
 </body>
 </html>
+
 
 
 
