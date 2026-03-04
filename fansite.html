@@ -1407,11 +1407,19 @@ box-shadow:0 2px 8px rgba(0,0,0,0.05);
     display:flex;
     flex-direction:column;
     gap:10px;
+    align-items:flex-start; /* 左寄せ */
   }
 
+  /* 上段：お気に入り＋プルダウン */
+  .event-actions-top{
+    display:flex;
+    gap:10px;
+    align-items:center;
+  }
+
+  /* カレンダーボタンは下段 */
   .calendar-btn{
-    width:100%;
-    justify-content:center;
+    align-self:flex-start;
   }
 
 }
@@ -2100,17 +2108,21 @@ fetch(eventsURL).then(r=>r.text()).then(text=>{
 
         <div class="event-actions">
 
-          <button class="fav-btn ${isFav(event.title) ? 'active' : ''}"
-            onclick="toggleFavorite('${event.title}')">
-            ♡ お気に入り
-          </button>
+          <div class="event-actions-top">
 
-          <select class="event-status"
-            onchange="saveStatus('${event.title}', this.value)">
-            <option value="">選択しない</option>
-            <option value="予定" ${getStatus(event.title)==="予定"?"selected":""}>参加予定</option>
-            <option value="済" ${getStatus(event.title)==="済"?"selected":""}>参加済</option>
-          </select>
+            <button class="fav-btn ${isFav(event.title) ? 'active' : ''}"
+              onclick="toggleFavorite('${event.title}')">
+              ♡ お気に入り
+            </button>
+
+            <select class="event-status"
+              onchange="saveStatus('${event.title}', this.value)">
+              <option value="">選択しない</option>
+              <option value="予定" ${getStatus(event.title)==="予定"?"selected":""}>参加予定</option>
+              <option value="済" ${getStatus(event.title)==="済"?"selected":""}>参加済</option>
+            </select>
+
+          </div>
 
           <button class="calendar-btn"
             onclick="openCalendarModal(
@@ -2127,7 +2139,6 @@ fetch(eventsURL).then(r=>r.text()).then(text=>{
           </button>
 
         </div>
-
       </div>
     </div>
     `;
@@ -3000,16 +3011,16 @@ function closeCalendarModal(){
   document.getElementById("calendarModal").classList.remove("active");
 }
 
-function formatDateForGoogle(dateStr, isEnd=false){
+function formatAllDay(dateStr, addDay=false){
   if(!dateStr) return "";
 
   const date = new Date(dateStr + "T00:00:00+09:00");
 
-  if(isEnd){
+  if(addDay){
     date.setDate(date.getDate() + 1);
   }
 
-  return date.toISOString().replace(/[-:]/g,"").split(".")[0] + "Z";
+  return date.toISOString().split("T")[0].replace(/-/g,"");
 }
 
 function addToGoogleCalendar(){
@@ -3022,21 +3033,24 @@ function addToGoogleCalendar(){
   let dates = "";
 
   if(type === "start"){
-    const s = formatDateForGoogle(start);
-    dates = `${s}/${s}`;
+    const s = formatAllDay(start);
+    const next = formatAllDay(start,true);
+    dates = `${s}/${next}`;
   }
   else if(type === "end" && end){
-    const e = formatDateForGoogle(end);
-    dates = `${e}/${e}`;
+    const e = formatAllDay(end);
+    const next = formatAllDay(end,true);
+    dates = `${e}/${next}`;
   }
   else if(type === "period" && end){
-    const s = formatDateForGoogle(start);
-    const e = formatDateForGoogle(end,true);
+    const s = formatAllDay(start);
+    const e = formatAllDay(end,true);
     dates = `${s}/${e}`;
   }
   else{
-    const s = formatDateForGoogle(start);
-    dates = `${s}/${s}`;
+    const s = formatAllDay(start);
+    const next = formatAllDay(start,true);
+    dates = `${s}/${next}`;
   }
 
   const url =
@@ -3089,3 +3103,4 @@ loadTodayContent();
   
 </body>
 </html>
+
