@@ -1296,13 +1296,22 @@ box-shadow:0 2px 8px rgba(0,0,0,0.05);
 }
 
 .calendar-modal{
-  display:none;
+  display:flex;
   position:fixed;
   inset:0;
   background:rgba(0,0,0,0.5);
   justify-content:center;
   align-items:center;
   z-index:9999;
+
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 0.25s ease;
+}
+
+.calendar-modal.active{
+  opacity:1;
+  pointer-events:auto;
 }
 
 .calendar-modal-content{
@@ -1310,7 +1319,16 @@ box-shadow:0 2px 8px rgba(0,0,0,0.05);
   padding:20px;
   border-radius:12px;
   width:90%;
-  max-width:320px;
+  max-width:340px;
+
+  transform:translateY(20px);
+  opacity:0;
+  transition:0.25s ease;
+}
+
+.calendar-modal.active .calendar-modal-content{
+  transform:translateY(0);
+  opacity:1;
 }
 
 .calendar-modal-content h3{
@@ -1322,10 +1340,80 @@ box-shadow:0 2px 8px rgba(0,0,0,0.05);
   margin-bottom:8px;
 }
 
+.calendar-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:8px 14px;
+  border-radius:8px;
+  border:none;
+  cursor:pointer;
+  font-size:14px;
+  font-weight:600;
+  background:#4285F4;   /* Google blue */
+  color:#fff;
+  transition:0.2s ease;
+}
+
+.calendar-btn:hover{
+  background:#3367D6;
+  transform:translateY(-1px);
+}
+
+.calendar-btn:active{
+  transform:translateY(0);
+}
+
+.calendar-btn .material-symbols-outlined{
+  font-size:18px;
+}
+
 .modal-actions{
-  margin-top:15px;
+  margin-top:20px;
   display:flex;
-  justify-content:space-between;
+  gap:10px;
+  justify-content:flex-end;
+}
+
+.modal-actions button{
+  padding:8px 14px;
+  border-radius:8px;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+  transition:0.2s ease;
+}
+
+.modal-actions button:first-child{
+  background:#eee;
+}
+
+.modal-actions button:first-child:hover{
+  background:#ddd;
+}
+
+.modal-actions button:last-child{
+  background:#4285F4;
+  color:#fff;
+}
+
+.modal-actions button:last-child:hover{
+  background:#3367D6;
+}
+
+@media(max-width:768px){
+
+  .event-actions{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+
+  .calendar-btn{
+    width:100%;
+    justify-content:center;
+  }
+
 }
   
 </style>
@@ -2032,7 +2120,10 @@ fetch(eventsURL).then(r=>r.text()).then(text=>{
               '${event.location}',
               '${event.note || ""}'
             )">
-            📅 Googleカレンダー追加
+            <span class="material-symbols-outlined">
+              event_available
+            </span>
+            Googleカレンダーに追加
           </button>
 
         </div>
@@ -2902,11 +2993,11 @@ let calendarData = {};
 
 function openCalendarModal(title,start,end,location,details){
   calendarData = { title, start, end, location, details };
-  document.getElementById("calendarModal").style.display = "flex";
+  document.getElementById("calendarModal").classList.add("active");
 }
 
 function closeCalendarModal(){
-  document.getElementById("calendarModal").style.display = "none";
+  document.getElementById("calendarModal").classList.remove("active");
 }
 
 function formatDateForGoogle(dateStr, isEnd=false){
@@ -2998,24 +3089,3 @@ loadTodayContent();
   
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
