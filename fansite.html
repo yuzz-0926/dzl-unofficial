@@ -3058,9 +3058,22 @@ function getGoodsSaleStatus(start, end){
 let calendarData = {};
 
 function formatJP(dateStr){
-  if(!dateStr) return "";
-  const date = new Date(dateStr + "T00:00:00+09:00");
-  return date.toLocaleDateString("ja-JP");
+
+  if(!dateStr || dateStr.trim()==="") return "";
+
+  const clean = dateStr.trim().split("T")[0];
+
+  const parts = clean.split("-");
+
+  if(parts.length !== 3) return "";
+
+  const y = parts[0];
+  const m = Number(parts[1]);
+  const d = Number(parts[2]);
+
+  if(!y || !m || !d) return "";
+
+  return `${y}/${m}/${d}`;
 }
 
 function openCalendarModal(title,start,end,location,details){
@@ -3217,6 +3230,7 @@ loadTodayContent();
   
 </body>
 </html>
+
 
 
 
