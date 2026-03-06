@@ -2429,6 +2429,14 @@ fetch(eventsURL).then(r=>r.text()).then(text=>{
     </div>
     `;
 
+  setTimeout(()=>{
+
+  data.forEach(event=>{
+  loadLikeCount(event.id);
+  })
+
+  },500);
+    
   });
 
   // 一覧表示
@@ -2528,13 +2536,6 @@ fetch(eventsURL).then(r=>r.text()).then(text=>{
 
 });
 
-setTimeout(()=>{
-
-data.forEach(event=>{
-loadLikeCount(event.id);
-})
-
-},500);
   
 fetch(goodsURL)
   .then(res => res.text())
@@ -2647,15 +2648,16 @@ fetch(goodsURL)
     });
 
     document.getElementById("goodsList").innerHTML = html;
+
+    setTimeout(()=>{
+
+    data.forEach(item=>{
+    loadLikeCount(item.id);
+    })
+
+    },500);
+    
   });
-
-setTimeout(()=>{
-
-data.forEach(item=>{
-loadLikeCount(item.id);
-})
-
-},500);
   
 fetch(plannedURL).then(r=>r.text()).then(text=>{
 const data=parseCSV(text);
@@ -3257,8 +3259,6 @@ function loadNews(){
 
   });
 }
-
-loadLikeCount(news.id);
   
 /* ===== グッズ お気に入り ===== */
 function getGoodsFavorites(){
@@ -3556,6 +3556,7 @@ localStorage.setItem("liked_"+id,"1");
   
 </body>
 </html>
+
 
 
 
