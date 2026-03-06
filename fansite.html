@@ -3485,28 +3485,6 @@ document.getElementById("like-count-"+id).innerText = data.likeCount;
 });
 
 }
-
-fetch(GAS_URL,{
-method:"POST",
-body:new URLSearchParams({
-id:id,
-type:type
-})
-})
-.then(r=>r.json())
-.then(data=>{
-
-const el=document.getElementById("like-"+id);
-
-if(el){
-el.innerText=data.count;
-}
-
-localStorage.setItem("liked_"+id,"1");
-
-});
-
-}
   
 </script>
 
@@ -3561,6 +3539,7 @@ localStorage.setItem("liked_"+id,"1");
   
 </body>
 </html>
+
 
 
 
