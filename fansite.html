@@ -3215,15 +3215,9 @@ function loadNews(){
 
           <div class="like-box">
 
-          <button class="like-btn"
-          onclick="sendLike('${news.id}','news')">
-
-          <span class="material-symbols-outlined">
-          thumb_up
-          </span>
-
-          <span id="like-${news.id}">0</span>
-
+          <button class="like-btn" onclick="sendLike('${news.id}')">
+            <span class="material-symbols-outlined">thumb_up</span>
+            <span id="like-count-${news.id}">0</span>
           </button>
 
           </div>
@@ -3460,6 +3454,7 @@ function loadLikeCount(id){
   .then(data=>{
 
     const el = document.getElementById("like-count-"+id);
+
     if(el){
       el.innerText = data.likeCount;
     }
@@ -3536,6 +3531,7 @@ document.getElementById("like-count-"+id).innerText = data.likeCount;
   
 </body>
 </html>
+
 
 
 
