@@ -1549,24 +1549,26 @@ margin-top:10px;
 }
 
 .like-btn{
-display:inline-flex;
-align-items:center;
-gap:6px;
-background:#fff;
-border:1px solid #ddd;
-border-radius:20px;
-padding:4px 10px;
-font-size:13px;
-cursor:pointer;
-transition:0.2s;
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  border:1px solid #000;
+  background:#fff;
+  color:#000;
+  padding:4px 8px;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:13px;
+}
+
+.like-btn.liked{
+  background:#000;
+  color:#fff;
+  cursor:default;
 }
 
 .like-btn:hover{
 background:#f5f5f5;
-}
-
-.like-btn.liked{
-color:#1976d2;
 }
   
 .like-btn .material-symbols-outlined{
@@ -3426,14 +3428,26 @@ async function loadAllLikes(){
       el.innerText=data[id];
     }
 
+    // 押した状態復元
+    if(localStorage.getItem("liked_"+id)){
+
+      const btn=document.querySelector(`[data-like="${id}"]`);
+
+      if(btn){
+        btn.classList.add("liked");
+        btn.disabled=true;
+      }
+
+    }
+
   });
 
 }
   
 async function sendLike(id){
 
+  // すでに押してたら何もしない
   if(localStorage.getItem("liked_"+id)){
-    alert("すでにいいねしています");
     return;
   }
 
@@ -3442,6 +3456,7 @@ async function sendLike(id){
     body:new URLSearchParams({id:id})
   });
 
+  // 押した履歴保存
   localStorage.setItem("liked_"+id,true);
 
   const el=document.getElementById("like-count-"+id);
@@ -3454,6 +3469,7 @@ async function sendLike(id){
 
   if(btn){
     btn.classList.add("liked");
+    btn.disabled=true;   // ←追加
   }
 
 }
@@ -3530,6 +3546,7 @@ loadAllLikes();
   
 </body>
 </html>
+
 
 
 
