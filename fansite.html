@@ -2429,14 +2429,6 @@ fetch(eventsURL).then(r=>r.text()).then(text=>{
       </div>
     </div>
     `;
-
-  setTimeout(()=>{
-
-  data.forEach(event=>{
-  loadLikeCount(event.id);
-  })
-
-  },500);
     
   });
 
@@ -2636,14 +2628,6 @@ fetch(goodsURL)
     });
 
     document.getElementById("goodsList").innerHTML = html;
-
-    setTimeout(()=>{
-
-    data.forEach(item=>{
-    loadLikeCount(item.id);
-    })
-
-    },500);
     
   });
   
@@ -3546,6 +3530,7 @@ loadAllLikes();
   
 </body>
 </html>
+
 
 
 
