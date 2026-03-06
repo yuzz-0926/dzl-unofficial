@@ -2002,7 +2002,7 @@ function loadTodayContent(){
 
     });
 
-  }else{
+  }else if(category === "word"){
 
     fetch(wordsURL).then(r=>r.text()).then(text=>{
 
@@ -3336,6 +3336,7 @@ loadTodayContent();
   
 </body>
 </html>
+
 
 
 
