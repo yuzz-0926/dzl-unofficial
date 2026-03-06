@@ -3441,8 +3441,6 @@ window.addEventListener("DOMContentLoaded", ()=>{
   }
 
 });
-
-loadLikeCount(news.id);
   
 loadNews();
 loadTodayContent();
@@ -3479,7 +3477,9 @@ document.getElementById("like-count-"+id).innerText = data.likeCount;
 });
 
 }
-  
+
+
+loadLikeCount(news.id);
 </script>
 
 </main>
@@ -3533,6 +3533,7 @@ document.getElementById("like-count-"+id).innerText = data.likeCount;
   
 </body>
 </html>
+
 
 
 
