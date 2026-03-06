@@ -3461,24 +3461,29 @@ const GAS_URL = "https://script.google.com/macros/s/AKfycbwtbohoKr3svQsqGLq1Ces4
 
 function loadLikeCount(id){
 
-fetch(`${GAS_URL}?id=${id}`)
-.then(r=>r.json())
+fetch(GAS_URL + "?id=" + id)
+.then(res=>res.json())
 .then(data=>{
 
-const el=document.getElementById("like-"+id);
-
-if(el){
-el.innerText=data.count;
-}
+document.getElementById("like-count-"+id).innerText = data.likeCount;
 
 });
 
 }
 
-function sendLike(id,type){
+function sendLike(id){
 
-if(localStorage.getItem("liked_"+id)){
-return;
+fetch(GAS_URL,{
+method:"POST",
+body:JSON.stringify({id:id})
+})
+.then(res=>res.json())
+.then(data=>{
+
+document.getElementById("like-count-"+id).innerText = data.likeCount;
+
+});
+
 }
 
 fetch(GAS_URL,{
@@ -3556,6 +3561,7 @@ localStorage.setItem("liked_"+id,"1");
   
 </body>
 </html>
+
 
 
 
