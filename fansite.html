@@ -1544,6 +1544,31 @@ box-shadow:0 2px 8px rgba(0,0,0,0.05);
   margin-top:4px;
 }
 
+.like-box{
+margin-top:10px;
+}
+
+.like-btn{
+display:inline-flex;
+align-items:center;
+gap:6px;
+background:#fff;
+border:1px solid #ddd;
+border-radius:20px;
+padding:4px 10px;
+font-size:13px;
+cursor:pointer;
+transition:0.2s;
+}
+
+.like-btn:hover{
+background:#f5f5f5;
+}
+
+.like-btn .material-symbols-outlined{
+font-size:18px;
+}
+  
 </style>
 </head>
 
@@ -2247,6 +2272,8 @@ function loadTodayContent(){
   }
 }
 
+loadLikeCount(random.id);
+  
 const todayBox=document.getElementById("todayBox");
 
 fetch(eventsURL).then(r=>r.text()).then(text=>{
@@ -2384,6 +2411,21 @@ fetch(eventsURL).then(r=>r.text()).then(text=>{
             Googleカレンダーに追加
           </button>
 
+          <div class="like-box">
+
+          <button class="like-btn"
+          onclick="sendLike('${event.id}','event')">
+
+          <span class="material-symbols-outlined">
+          thumb_up
+          </span>
+
+          <span id="like-${event.id}">0</span>
+
+          </button>
+
+          </div>
+
         </div>
       </div>
     </div>
@@ -2488,6 +2530,14 @@ fetch(eventsURL).then(r=>r.text()).then(text=>{
 
 });
 
+setTimeout(()=>{
+
+data.forEach(event=>{
+loadLikeCount(event.id);
+})
+
+},500);
+  
 fetch(goodsURL)
   .then(res => res.text())
   .then(text => {
@@ -2576,6 +2626,21 @@ fetch(goodsURL)
               </option>
             </select>
 
+            <div class="like-box">
+
+            <button class="like-btn"
+            onclick="sendLike('${item.id}','goods')">
+
+            <span class="material-symbols-outlined">
+            thumb_up
+            </span>
+
+            <span id="like-${item.id}">0</span>
+
+            </button>
+
+            </div>
+
           </div>
 
         </div>
@@ -2586,6 +2651,14 @@ fetch(goodsURL)
     document.getElementById("goodsList").innerHTML = html;
   });
 
+setTimeout(()=>{
+
+data.forEach(item=>{
+loadLikeCount(item.id);
+})
+
+},500);
+  
 fetch(plannedURL).then(r=>r.text()).then(text=>{
 const data=parseCSV(text);
 
@@ -3146,6 +3219,21 @@ function loadNews(){
             </a>
           ` : ""}
 
+          <div class="like-box">
+
+          <button class="like-btn"
+          onclick="sendLike('${news.id}','news')">
+
+          <span class="material-symbols-outlined">
+          thumb_up
+          </span>
+
+          <span id="like-${news.id}">0</span>
+
+          </button>
+
+          </div>
+
         </div>
         `;
       }
@@ -3172,6 +3260,8 @@ function loadNews(){
   });
 }
 
+loadLikeCount(news.id);
+  
 /* ===== グッズ お気に入り ===== */
 function getGoodsFavorites(){
   return JSON.parse(localStorage.getItem("goodsFavorites") || "[]");
@@ -3368,6 +3458,53 @@ window.addEventListener("DOMContentLoaded", ()=>{
   
 loadNews();
 loadTodayContent();
+
+const GAS_URL = "https://script.google.com/macros/s/AKfycbwtbohoKr3svQsqGLq1Ces4OjERJbFJlOlg0NEFBcybJD8yWSfLz33yftJE7U-EEoYTgg/exec";
+
+function loadLikeCount(id){
+
+fetch(`${GAS_URL}?id=${id}`)
+.then(r=>r.json())
+.then(data=>{
+
+const el=document.getElementById("like-"+id);
+
+if(el){
+el.innerText=data.count;
+}
+
+});
+
+}
+
+function sendLike(id,type){
+
+if(localStorage.getItem("liked_"+id)){
+return;
+}
+
+fetch(GAS_URL,{
+method:"POST",
+body:new URLSearchParams({
+id:id,
+type:type
+})
+})
+.then(r=>r.json())
+.then(data=>{
+
+const el=document.getElementById("like-"+id);
+
+if(el){
+el.innerText=data.count;
+}
+
+localStorage.setItem("liked_"+id,"1");
+
+});
+
+}
+  
 </script>
 
 </main>
@@ -3421,5 +3558,6 @@ loadTodayContent();
   
 </body>
 </html>
+
 
 
