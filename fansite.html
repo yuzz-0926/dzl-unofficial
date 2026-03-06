@@ -1856,6 +1856,8 @@ const eventsURL="https://docs.google.com/spreadsheets/d/e/2PACX-1vQeScX6j_3nRvOl
 const goodsURL="https://docs.google.com/spreadsheets/d/e/2PACX-1vQeScX6j_3nRvOlYuVa0P4wGG6piBpQ2ZwXzZxEPscII79uBByy9Z8_MDND2wouDZboQQon7XVVN4Gp/pub?gid=1794976478&single=true&output=csv";
 const videosURL="https://docs.google.com/spreadsheets/d/e/2PACX-1vQeScX6j_3nRvOlYuVa0P4wGG6piBpQ2ZwXzZxEPscII79uBByy9Z8_MDND2wouDZboQQon7XVVN4Gp/pub?gid=594878538&single=true&output=csv";
 const wordsURL="https://docs.google.com/spreadsheets/d/e/2PACX-1vQeScX6j_3nRvOlYuVa0P4wGG6piBpQ2ZwXzZxEPscII79uBByy9Z8_MDND2wouDZboQQon7XVVN4Gp/pub?gid=1791332374&single=true&output=csv";
+const charactersURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQeScX6j_3nRvOlYuVa0P4wGG6piBpQ2ZwXzZxEPscII79uBByy9Z8_MDND2wouDZboQQon7XVVN4Gp/pub?gid=219033798&single=true&output=csv";
+const seriesURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQeScX6j_3nRvOlYuVa0P4wGG6piBpQ2ZwXzZxEPscII79uBByy9Z8_MDND2wouDZboQQon7XVVN4Gp/pub?gid=1118324026&single=true&output=csv";
 const plannedURL="https://docs.google.com/spreadsheets/d/e/2PACX-1vQeScX6j_3nRvOlYuVa0P4wGG6piBpQ2ZwXzZxEPscII79uBByy9Z8_MDND2wouDZboQQon7XVVN4Gp/pub?gid=1152267879&single=true&output=csv";
 const newsURL="https://docs.google.com/spreadsheets/d/e/2PACX-1vQeScX6j_3nRvOlYuVa0P4wGG6piBpQ2ZwXzZxEPscII79uBByy9Z8_MDND2wouDZboQQon7XVVN4Gp/pub?gid=99757782&single=true&output=csv";
   
@@ -1952,7 +1954,8 @@ function formatGoodsDateTime(startStr, endStr){
   
 function loadTodayContent(){
 
-  const category = Math.random() < 0.5 ? "video" : "word";
+  const categories = ["video","word","character","series"];
+  const category = categories[Math.floor(Math.random()*categories.length)];
 
   if(category === "video"){
 
@@ -2053,6 +2056,109 @@ function loadTodayContent(){
 
     });
 
+  }else if(category === "character"){
+
+    fetch(charactersURL).then(r=>r.text()).then(text=>{
+
+      const data = parseCSV(text);
+      if(!data.length) return;
+
+      const random = data[Math.floor(Math.random()*data.length)];
+
+      const thumb = random.url ? getYouTubeThumbnail(random.url) : null;
+
+      todayBox.innerHTML = `
+
+        <div class="random-section-title">
+          <span class="material-symbols-outlined">
+            bar_chart_4_bars
+          </span>
+          ランダムドズル社データ【キャラ】
+        </div>
+
+        <div class="random-card ${thumb ? "" : "no-image"}">
+
+          ${thumb ? `
+            <div class="random-thumb-box">
+              <img src="${thumb}" class="random-thumb">
+            </div>
+          ` : ""}
+
+          <div class="random-content">
+
+            <p class="random-title">${random.name}</p>
+
+            <p class="random-meta">
+            演者：${random.actor}
+            </p>
+
+            ${random.description ? `
+              <p class="random-description">
+                ${random.description}
+              </p>
+            ` : ""}
+
+            ${random.url && random.url.trim() !== "" ? `
+              <a href="${random.url}" target="_blank" class="random-link">
+                <span class="material-symbols-outlined link-icon">
+                  open_in_new
+                </span>
+                出演動画を見る
+              </a>
+            ` : ""}
+
+          </div>
+
+        </div>
+      `;
+
+    });
+
+  }else if(category === "series"){
+
+    fetch(seriesURL).then(r=>r.text()).then(text=>{
+
+      const data = parseCSV(text);
+      if(!data.length) return;
+
+      const random = data[Math.floor(Math.random()*data.length)];
+
+      todayBox.innerHTML = `
+
+        <div class="random-section-title">
+          <span class="material-symbols-outlined">
+            bar_chart_4_bars
+          </span>
+          ランダムドズル社データ【シリーズ】
+        </div>
+
+        <div class="random-card no-image">
+
+          <div class="random-content">
+
+            <p class="random-title">${random.name}</p>
+
+            ${random.description ? `
+              <p class="random-description">
+                ${random.description}
+              </p>
+            ` : ""}
+
+            ${random.playlist && random.playlist.trim() !== "" ? `
+              <a href="${random.playlist}" target="_blank" class="random-link">
+                <span class="material-symbols-outlined link-icon">
+                  open_in_new
+                </span>
+                再生リストを見る
+              </a>
+            ` : ""}
+
+          </div>
+
+        </div>
+      `;
+
+    });
   }
 }
 
@@ -3230,6 +3336,7 @@ loadTodayContent();
   
 </body>
 </html>
+
 
 
 
