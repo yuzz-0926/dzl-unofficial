@@ -2411,15 +2411,9 @@ fetch(eventsURL).then(r=>r.text()).then(text=>{
 
           <div class="like-box">
 
-          <button class="like-btn"
-          onclick="sendLike('${event.id}','event')">
-
-          <span class="material-symbols-outlined">
-          thumb_up
-          </span>
-
-          <span id="like-${event.id}">0</span>
-
+          <button class="like-btn" onclick="sendLike('${event.id}')">
+            <span class="material-symbols-outlined">thumb_up</span>
+            <span id="like-count-${event.id}">0</span>
           </button>
 
           </div>
@@ -3461,13 +3455,16 @@ const GAS_URL = "https://script.google.com/macros/s/AKfycbwtbohoKr3svQsqGLq1Ces4
 
 function loadLikeCount(id){
 
-fetch(GAS_URL + "?id=" + id)
-.then(res=>res.json())
-.then(data=>{
+  fetch(GAS_URL + "?id=" + id)
+  .then(r=>r.json())
+  .then(data=>{
 
-document.getElementById("like-count-"+id).innerText = data.likeCount;
+    const el = document.getElementById("like-count-"+id);
+    if(el){
+      el.innerText = data.likeCount;
+    }
 
-});
+  });
 
 }
 
@@ -3539,6 +3536,7 @@ document.getElementById("like-count-"+id).innerText = data.likeCount;
   
 </body>
 </html>
+
 
 
 
