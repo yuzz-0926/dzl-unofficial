@@ -1574,6 +1574,30 @@ background:#f5f5f5;
 .like-btn .material-symbols-outlined{
 font-size:18px;
 }
+
+/* ▼ 非表示 */
+.hidden{
+  display:none;
+}
+
+/* ▼ トグルボタン */
+.toggle-detail-btn{
+  padding:10px 14px;
+  border-radius:10px;
+  border:1px solid #ccc;
+  background:#fff;
+  cursor:pointer;
+  font-weight:bold;
+  width:fit-content;
+}
+
+/* ▼ 開いた中身 */
+.event-detail{
+  margin-top:10px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
   
 </style>
 </head>
@@ -2405,37 +2429,47 @@ fetch(eventsURL).then(r=>r.text()).then(text=>{
 
         <div class="event-actions">
 
-          <div class="event-actions-top">
-
-            <button class="fav-btn ${isFav(event.title) ? 'active' : ''}"
-              onclick="toggleFavorite('${event.title}')">
-              ♡ お気に入り
-            </button>
-
-            <select class="event-status"
-              onchange="saveStatus('${event.title}', this.value)">
-              <option value="">選択しない</option>
-              <option value="予定" ${getStatus(event.title)==="予定"?"selected":""}>参加予定</option>
-              <option value="済" ${getStatus(event.title)==="済"?"selected":""}>参加済</option>
-            </select>
-
-          </div>
-
-          <button class="calendar-btn"
-            onclick="openCalendarModal(
-              '${event.title}',
-              '${event.start_date}',
-              '${event.end_date}',
-              '${event.location}',
-              '${event.note || ""}'
-            )">
-            <span class="material-symbols-outlined">
-              event_available
-            </span>
-            Googleカレンダーに追加
+          <!-- ▼ トグルボタン -->
+          <button class="toggle-detail-btn" onclick="toggleDetail(this)">
+            マイリスト追加 ▼
           </button>
 
-          ${createLikeButton(event.id)}
+          <!-- ▼ 隠れるエリア -->
+          <div class="event-detail hidden">
+
+            <div class="event-actions-top">
+
+              <button class="fav-btn ${isFav(event.title) ? 'active' : ''}"
+                onclick="toggleFavorite('${event.title}')">
+                ♡ お気に入り
+              </button>
+
+              <select class="event-status"
+                onchange="saveStatus('${event.title}', this.value)">
+                <option value="">選択しない</option>
+                <option value="予定" ${getStatus(event.title)==="予定"?"selected":""}>参加予定</option>
+                <option value="済" ${getStatus(event.title)==="済"?"selected":""}>参加済</option>
+              </select>
+
+            </div>
+
+            <button class="calendar-btn"
+              onclick="openCalendarModal(
+                '${event.title}',
+                '${event.start_date}',
+                '${event.end_date}',
+                '${event.location}',
+                '${event.note || ""}'
+              )">
+              <span class="material-symbols-outlined">
+                event_available
+              </span>
+              Googleカレンダーに追加
+            </button>
+
+            ${createLikeButton(event.id)}
+
+          </div>
 
         </div>
       </div>
@@ -3500,6 +3534,20 @@ function createLikeButton(id){
 
 }
 
+function toggleDetail(btn){
+
+  const detail = btn.nextElementSibling;
+
+  if(detail.classList.contains("hidden")){
+    detail.classList.remove("hidden");
+    btn.textContent = "閉じる ▲";
+  }else{
+    detail.classList.add("hidden");
+    btn.textContent = "マイリスト追加 ▼";
+  }
+
+}
+  
 loadNews();
 loadTodayContent();
 loadAllLikes();
