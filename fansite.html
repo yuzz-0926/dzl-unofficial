@@ -3342,25 +3342,16 @@ async function loadAllLikes(){
 
   Object.keys(data).forEach(id=>{
 
-    // ★これ追加（超重要）
-    if(!id) return;
+    // 両方更新
+    ["home_", "newsPage_"].forEach(prefix => {
 
-    const el = document.getElementById("like-count-"+id);
+      const el = document.getElementById("like-count-" + prefix + id);
 
-    if(el){
-      el.innerText = data[id];
-    }
-
-    if(localStorage.getItem("liked_"+id)){
-
-      const btn=document.querySelector(`[data-like="${id}"]`);
-
-      if(btn){
-        btn.classList.add("liked");
-        btn.disabled=true;
+      if(el){
+        el.innerText = data[id];
       }
 
-    }
+    });
 
   });
 
@@ -3396,20 +3387,21 @@ async function sendLike(id){
 
 }
 
-function createLikeButton(id){
+function createLikeButton(id, prefix = ""){
+
+  const uniqueId = prefix + id;
 
   return `
-    <button class="like-btn" data-like="${id}" onclick="sendLike('${id}')">
+    <button class="like-btn" data-like="${uniqueId}" onclick="sendLike('${uniqueId}')">
 
       <span class="material-symbols-outlined">
         thumb_up
       </span>
 
-      <span id="like-count-${id}">-</span>
+      <span id="like-count-${uniqueId}">-</span>
 
     </button>
   `;
-
 }
 
 function renderNews(newsData, showAll = false){
@@ -3458,7 +3450,7 @@ function renderNews(newsData, showAll = false){
           </a>
         ` : ""}
 
-        ${createLikeButton(item.id)}
+        ${createLikeButton(item.id, "newsPage_")}
 
       </div>
     `;
@@ -3492,6 +3484,8 @@ function loadNews(){
         ${renderNews(data, false)}
       </div>
     `;
+
+    ${createLikeButton(item.id, "home_")}
 
   });
 }
