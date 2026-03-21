@@ -3404,7 +3404,7 @@ function createLikeButton(id, prefix = ""){
   `;
 }
 
-function renderNews(newsData, showAll = false){
+function renderNews(newsData, showAll = false, prefix = ""){
 
   const now = new Date();
 
@@ -3450,7 +3450,7 @@ function renderNews(newsData, showAll = false){
           </a>
         ` : ""}
 
-        ${createLikeButton(item.id, "newsPage_")}
+        ${createLikeButton(item.id, prefix)}
 
       </div>
     `;
@@ -3481,11 +3481,9 @@ function loadNews(){
       </div>
 
       <div class="news-scroll-box">
-        ${renderNews(data, false)}
+        ${renderNews(data, false, "home_")}
       </div>
     `;
-
-    ${createLikeButton(item.id, "home_")}
 
   });
 }
@@ -3503,7 +3501,7 @@ function loadNewsPage(){
 
       // ★全表示（期間制限なし）
       document.getElementById("newsPageList").innerHTML =
-        renderNews(data, true);
+        renderNews(data, true, "newsPage_");
 
       // ★ここ修正（超重要）
       loadAllLikes();
