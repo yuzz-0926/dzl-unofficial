@@ -1574,7 +1574,12 @@ background:#f5f5f5;
 .like-btn .material-symbols-outlined{
 font-size:18px;
 }
-  
+
+.news-card.expired {
+  opacity: 0.5;
+  filter: grayscale(80%);
+  border: 1px solid #aaa;
+}
 </style>
 </head>
 
@@ -3419,11 +3424,13 @@ function renderNews(newsData, showAll = false, prefix = ""){
   
   newsData.forEach(item => {
 
-    // ===== 表示制御 =====
-    if(!showAll){
-      if(item.end_date){
-        const end = new Date(item.end_date);
-        if(end < now) return; // 終了したら非表示
+
+    let isExpired = false;
+
+    if(item.end_date){
+      const end = new Date(item.end_date);
+      if(end < now){
+        isExpired = true;
       }
     }
 
@@ -3434,9 +3441,9 @@ function renderNews(newsData, showAll = false, prefix = ""){
       const diff = (now - start) / (1000 * 60 * 60 * 24);
       if(diff <= 3) isNew = true; // 3日以内
     }
-
+    
     html += `
-      <div class="news-card">
+      <div class="news-card ${isExpired && showAll ? "expired" : ""}">
 
         <div class="news-header">
           <span class="material-symbols-outlined news-icon">feed</span>
