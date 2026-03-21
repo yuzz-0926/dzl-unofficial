@@ -3432,7 +3432,6 @@ function renderNews(newsData, showAll = false, prefix = ""){
   
   newsData.forEach(item => {
 
-
     let isExpired = false;
 
     if(item.end_date){
@@ -3441,6 +3440,9 @@ function renderNews(newsData, showAll = false, prefix = ""){
         isExpired = true;
       }
     }
+
+    // ★これ追加（超重要）
+    if(isExpired && !showAll) return;
 
     // ===== NEW判定 =====
     let isNew = false;
