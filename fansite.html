@@ -3509,7 +3509,10 @@ function loadNewsPage(){
       document.getElementById("newsPageList").innerHTML =
         renderNews(data, true);
 
-      loadAllLikes();
+      // ★ここ修正（超重要）
+      setTimeout(() => {
+        loadAllLikes();
+      }, 100);
     });
 }
   
