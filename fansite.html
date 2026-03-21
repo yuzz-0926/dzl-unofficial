@@ -3414,13 +3414,8 @@ function renderNews(newsData, showAll = false){
 
   const now = new Date();
 
-  let html = `
-    <div class="news-section-title">
-      <span class="material-symbols-outlined">article</span>
-      ドズル社の最新ニュース
-    </div>
-  `;
-
+  let html = "";  // ← ここを変更（タイトル削除）
+  
   newsData.forEach(item => {
 
     // ===== 表示制御 =====
@@ -3443,7 +3438,7 @@ function renderNews(newsData, showAll = false){
       <div class="news-card">
 
         <div class="news-header">
-          <span class="material-symbols-outlined news-icon">campaign</span>
+          <span class="material-symbols-outlined news-icon">feed</span>
           <span class="news-date">${item.start_date || ""}</span>
           ${isNew ? `<span class="news-badge">NEW</span>` : ""}
         </div>
@@ -3484,6 +3479,13 @@ function loadNews(){
 
     // ★ここを丸ごと置き換え
     document.getElementById("newsBox").innerHTML = `
+      <div class="news-section-title">
+        <span class="material-symbols-outlined">
+          campaign
+        </span>
+        ドズル社の最新ニュース
+      </div>
+
       <div class="news-scroll-box">
         ${renderNews(data, false)}
       </div>
