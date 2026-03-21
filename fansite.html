@@ -3342,14 +3342,21 @@ async function loadAllLikes(){
 
   Object.keys(data).forEach(id=>{
 
-    // 両方更新
+    if(!id) return;
+
+    // ★① 元のID（これ重要）
+    document.querySelectorAll(`#like-count-${id}`)
+      .forEach(el => {
+        el.innerText = data[id];
+      });
+
+    // ★② prefix付き（ニュース用）
     ["home_", "newsPage_"].forEach(prefix => {
 
-      const el = document.getElementById("like-count-" + prefix + id);
-
-      if(el){
-        el.innerText = data[id];
-      }
+      document.querySelectorAll(`#like-count-${prefix + id}`)
+        .forEach(el => {
+          el.innerText = data[id];
+        });
 
     });
 
