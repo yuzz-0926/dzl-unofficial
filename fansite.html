@@ -3342,13 +3342,15 @@ async function loadAllLikes(){
 
   Object.keys(data).forEach(id=>{
 
-    const el=document.getElementById("like-count-"+id);
+    // ★これ追加（超重要）
+    if(!id) return;
+
+    const el = document.getElementById("like-count-"+id);
 
     if(el){
-      el.innerText=data[id];
+      el.innerText = data[id];
     }
 
-    // 押した状態復元
     if(localStorage.getItem("liked_"+id)){
 
       const btn=document.querySelector(`[data-like="${id}"]`);
