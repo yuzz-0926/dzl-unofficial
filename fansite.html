@@ -3508,6 +3508,8 @@ function loadNewsPage(){
       // ★全表示（期間制限なし）
       document.getElementById("newsPageList").innerHTML =
         renderNews(data, true);
+
+      loadAllLikes();
     });
 }
   
