@@ -3420,16 +3420,16 @@ function renderNews(newsData, showAll = false){
 
     // ===== 表示制御 =====
     if(!showAll){
-      if(item.end_date){
-        const end = new Date(item.end_date);
+      if(news.end_date){
+        const end = new Date(news.end_date);
         if(end < now) return; // 終了したら非表示
       }
     }
 
     // ===== NEW判定 =====
     let isNew = false;
-    if(item.start_date){
-      const start = new Date(item.start_date);
+    if(news.start_date){
+      const start = new Date(news.start_date);
       const diff = (now - start) / (1000 * 60 * 60 * 24);
       if(diff <= 3) isNew = true; // 3日以内
     }
@@ -3439,24 +3439,24 @@ function renderNews(newsData, showAll = false){
 
         <div class="news-header">
           <span class="material-symbols-outlined news-icon">feed</span>
-          <span class="news-date">${item.start_date || ""}</span>
+          <span class="news-date">${news.start_date || ""}</span>
           ${isNew ? `<span class="news-badge">NEW</span>` : ""}
         </div>
 
-        <div class="news-title">${item.title}</div>
+        <div class="news-title">${news.title}</div>
 
         <div class="news-content">
-          ${item.content || ""}
+          ${news.content || ""}
         </div>
 
-        ${item.link ? `
-          <a href="${item.link}" target="_blank" class="news-link">
+        ${news.link ? `
+          <a href="${news.link}" target="_blank" class="news-link">
             <span class="material-symbols-outlined link-icon">open_in_new</span>
             詳しく見る
           </a>
         ` : ""}
 
-        ${createLikeButton(item.id)}
+        ${createLikeButton(news.id)}
 
       </div>
     `;
