@@ -3512,9 +3512,7 @@ function loadNewsPage(){
         renderNews(data, true);
 
       // ★ここ修正（超重要）
-      setTimeout(() => {
-        loadAllLikes();
-      }, 100);
+      loadAllLikes();
     });
 }
   
