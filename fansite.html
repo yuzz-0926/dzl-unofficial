@@ -1717,6 +1717,56 @@ font-size:18px;
   line-height: 1.6;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
+
+/* 全体 */
+.youtube-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* 各項目 */
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #f8f9fa;
+  padding: 16px 18px;
+  border-radius: 12px;
+  transition: 0.2s;
+}
+
+/* ホバーでちょっと浮く */
+.stat-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* アイコン */
+.stat-icon {
+  font-size: 32px;
+  color: #555;
+}
+
+/* 数字部分 */
+.stat-value {
+  font-size: 24px;
+  font-weight: 700;
+  margin-right: 4px;
+}
+
+/* 単位 */
+.stat-unit {
+  font-size: 14px;
+  color: #666;
+}
+
+/* ラベル */
+.stat-label {
+  font-size: 12px;
+  color: #888;
+  margin-top: 2px;
+}
 </style>
 </head>
 
@@ -1919,11 +1969,38 @@ font-size:18px;
 
     <!-- ★ここに今のYouTube情報 -->
     <div id="channelTab" class="tab-content">
-      <div class="youtube-box">
-        <p>登録者数：<span id="subCount">-</span></p>
-        <p>動画本数：<span id="videoCount">-</span></p>
-        <p>総再生回数：<span id="viewCount">-</span></p>
+
+      <div class="youtube-stats">
+
+        <div class="stat-item">
+          <span class="material-symbols-outlined stat-icon">group</span>
+          <div class="stat-text">
+            <span class="stat-value" id="subCount">-</span>
+            <span class="stat-unit">人</span>
+            <div class="stat-label">登録者数</div>
+          </div>
+        </div>
+
+        <div class="stat-item">
+          <span class="material-symbols-outlined stat-icon">movie</span>
+          <div class="stat-text">
+            <span class="stat-value" id="videoCount">-</span>
+            <span class="stat-unit">本</span>
+            <div class="stat-label">動画本数</div>
+          </div>
+        </div>
+
+        <div class="stat-item">
+          <span class="material-symbols-outlined stat-icon">bar_chart</span>
+          <div class="stat-text">
+            <span class="stat-value" id="viewCount">-</span>
+            <span class="stat-unit">回</span>
+            <div class="stat-label">総再生回数</div>
+          </div>
+        </div>
+
       </div>
+
     </div>
 
     <div id="historyTab" class="tab-content">
