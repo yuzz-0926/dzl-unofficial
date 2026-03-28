@@ -1838,9 +1838,10 @@ font-size:18px;
   
 <div id="about" class="section">
 <h2>ドズル社情報</h2>
-<div class="card">
-<h3>このページは現在作成中！</h3>
-<p>今後、詳細な情報やドズル社年表などを追加予定！</p>
+<div class="youtube-box">
+  <p>登録者数：<span id="subCount">-</span></p>
+  <p>動画本数：<span id="videoCount">-</span></p>
+  <p>総再生回数：<span id="viewCount">-</span></p>
 </div>
 </div>
 
@@ -1992,14 +1993,14 @@ font-size:18px;
 </div>
 
 <div class="feature-card">
-<h3>🛠 機能追加リクエスト</h3>
+<h3>機能追加リクエスト</h3>
 <p>
 「こんな機能があったらいいな！」というアイデアも歓迎しています。
 </p>
 </div>
 
 <div class="feature-card">
-<h3>📨 フォームはこちら</h3>
+<h3>フォームはこちら</h3>
 <p>
 下のボタンからフォームを開いて送信してください。
 </p>
@@ -3619,10 +3620,26 @@ function loadNewsPage(){
 
     });
 }
+
+async function loadYouTubeStats(){
+
+  const res = await fetch("https://script.google.com/macros/s/AKfycbz9CeRlFJEi66SLpncw2L5u93cMXKVnLf2q7cMf_d-jUyOqiRZbbMObuqSWN7d2kBbykA/exec");
+  const data = await res.json();
+
+  document.getElementById("subCount").innerText = formatNumber(data.subscriber);
+  document.getElementById("videoCount").innerText = formatNumber(data.video);
+  document.getElementById("viewCount").innerText = formatNumber(data.view);
+
+}
+
+function formatNumber(num){
+  return Number(num).toLocaleString();
+}
   
 loadNews();
 loadTodayContent();
 loadAllLikes();
+loadYouTubeStats();
 </script>
 
 </main>
