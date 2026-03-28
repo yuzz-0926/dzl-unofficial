@@ -1746,6 +1746,23 @@ font-size:18px;
   flex-wrap: wrap;
 }
 
+/* タブ全体 */
+.about-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+
+  /* ↓ これ追加（超重要） */
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* スクロールバーをちょっと消す（スマホ用） */
+.about-tabs::-webkit-scrollbar {
+  display: none;
+}
+  
 /* 基本ボタン */
 .tab-btn {
   padding: 10px 20px;
@@ -1760,6 +1777,10 @@ font-size:18px;
 
   /* ←ちょい斜めでかっこよく */
   clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+}
+
+.tab-btn {
+  flex: 0 0 auto;
 }
 
 /* ホバー */
@@ -1831,8 +1852,8 @@ font-size:18px;
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 22px;
+  font-weight: 800;
   margin-bottom: 15px;
   border-left: 4px solid #ff0000;
   padding-left: 10px;
