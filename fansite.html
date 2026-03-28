@@ -1663,36 +1663,6 @@ font-size:18px;
   margin: 6px 0;
 }
 
-/* タブ全体 */
-.about-tabs {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-}
-
-/* タブボタン */
-.tab-btn {
-  background: #f1f3f5;
-  border: none;
-  padding: 10px 18px;
-  border-radius: 999px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.2s;
-}
-
-/* ホバー */
-.tab-btn:hover {
-  background: #e0e3e7;
-}
-
-/* 選択中 */
-.tab-btn.active {
-  background: #111;
-  color: #fff;
-}
-
 /* コンテンツ */
 .tab-content {
   display: none;
@@ -1766,6 +1736,87 @@ font-size:18px;
   font-size: 12px;
   color: #888;
   margin-top: 2px;
+}
+
+/* タブ全体 */
+.about-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+/* 基本ボタン */
+.tab-btn {
+  padding: 10px 20px;
+  border: 2px solid transparent;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.25s ease;
+  
+  /* ←丸をやめる */
+  border-radius: 6px;
+
+  /* ←ちょい斜めでかっこよく */
+  clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+}
+
+/* ホバー */
+.tab-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* ===== 色設定 ===== */
+
+/* About（赤） */
+.tab-about {
+  border-color: #C80000;
+  color: #C80000;
+}
+.tab-about.active {
+  background: #C80000;
+  color: #fff;
+}
+
+/* Member（紫） */
+.tab-member {
+  border-color: #733C93;
+  color: #733C93;
+}
+.tab-member.active {
+  background: #733C93;
+  color: #fff;
+}
+
+/* Portal（黄） */
+.tab-portal {
+  border-color: #FCC700;
+  color: #CC9F00;
+}
+.tab-portal.active {
+  background: #FCC700;
+  color: #000;
+}
+
+/* Channel（水色） */
+.tab-channel {
+  border-color: #54C3F1;
+  color: #2A9FCC;
+}
+.tab-channel.active {
+  background: #54C3F1;
+  color: #fff;
+}
+
+/* History（ピンク） */
+.tab-history {
+  border-color: #EB6D9A;
+  color: #D94C7F;
+}
+.tab-history.active {
+  background: #EB6D9A;
+  color: #fff;
 }
 </style>
 </head>
@@ -1945,11 +1996,11 @@ font-size:18px;
 
   <!-- タブボタン -->
   <div class="about-tabs">
-    <button class="tab-btn active" onclick="switchAboutTab('aboutTab')">About</button>
-    <button class="tab-btn" onclick="switchAboutTab('memberTab')">Member</button>
-    <button class="tab-btn" onclick="switchAboutTab('portalTab')">Portal</button>
-    <button class="tab-btn" onclick="switchAboutTab('channelTab')">Channel</button>
-    <button class="tab-btn" onclick="switchAboutTab('historyTab')">History</button>
+    <button class="tab-btn tab-about active" onclick="switchAboutTab('aboutTab')">About</button>
+    <button class="tab-btn tab-member" onclick="switchAboutTab('memberTab')">Member</button>
+    <button class="tab-btn tab-portal" onclick="switchAboutTab('portalTab')">Portal</button>
+    <button class="tab-btn tab-channel" onclick="switchAboutTab('channelTab')">Channel</button>
+    <button class="tab-btn tab-history" onclick="switchAboutTab('historyTab')">History</button>
   </div>
 
   <!-- 中身 -->
