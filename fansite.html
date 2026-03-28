@@ -1780,18 +1780,27 @@ font-size:18px;
   border: 2px solid transparent;
   background: #fff;
   cursor: pointer;
-  font-weight: 600;
-  transition: all 0.25s ease;
-  
-  /* ←丸をやめる */
-  border-radius: 6px;
 
-  /* ←ちょい斜めでかっこよく */
+  font-weight: 600;
+  font-size: 16px; /* ←これで統一 */
+
+  transition: all 0.2s ease;
+
+  border-radius: 6px;
   clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+
+  flex: 0 0 auto;
+  white-space: nowrap;
 }
 
-.tab-btn {
-  flex: 0 0 auto;
+/* ホバー */
+.tab-btn:hover {
+  opacity: 0.8;
+}
+
+/* アクティブ */
+.tab-btn.active {
+  opacity: 1;
 }
 
 /* ===== 色設定 ===== */
@@ -1844,27 +1853,6 @@ font-size:18px;
 .tab-history.active {
   background: #EB6D9A;
   color: #fff;
-}
-
-/* 通常 */
-.tab-btn {
-  transition: all 0.2s ease;
-}
-
-/* ホバー */
-.tab-btn:hover {
-  transform: none;
-}
-
-.tab-btn:hover span,
-.tab-btn:hover {
-  font-size: 15.5px;
-}
-
-/* アクティブ */
-.tab-btn.active {
-  transform: none;
-  font-size: 16px;
 }
   
 /* 注意書き */
