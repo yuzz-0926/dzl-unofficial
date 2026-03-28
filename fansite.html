@@ -1749,10 +1749,29 @@ font-size:18px;
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
 }
-  
-/* スクロールバーをちょっと消す（スマホ用） */
+
+.about-tabs {
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  -webkit-overflow-scrolling: touch;
+
+  /* ↓スクロールバー見やすく */
+  scrollbar-width: thin;
+}
+
+/* Chrome系 */
 .about-tabs::-webkit-scrollbar {
-  display: none;
+  height: 6px;
+}
+
+.about-tabs::-webkit-scrollbar-track {
+  background: #eee;
+  border-radius: 10px;
+}
+
+.about-tabs::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
 }
   
 /* 基本ボタン */
@@ -1773,11 +1792,6 @@ font-size:18px;
 
 .tab-btn {
   flex: 0 0 auto;
-}
-
-/* ホバー */
-.tab-btn:hover {
-  transform: translateY(-2px);
 }
 
 /* ===== 色設定 ===== */
@@ -1832,6 +1846,27 @@ font-size:18px;
   color: #fff;
 }
 
+/* 通常 */
+.tab-btn {
+  transition: all 0.2s ease;
+}
+
+/* ホバー */
+.tab-btn:hover {
+  transform: none;
+}
+
+.tab-btn:hover span,
+.tab-btn:hover {
+  font-size: 15.5px;
+}
+
+/* アクティブ */
+.tab-btn.active {
+  transform: none;
+  font-size: 16px;
+}
+  
 /* 注意書き */
 .channel-note {
   font-size: 12px;
