@@ -1878,6 +1878,32 @@ font-size:18px;
   font-size: 22px;
   color: #000000;
 }
+
+.goods-extra {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+
+.goods-badge {
+  font-size: 12px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+/* 販売形式 */
+.goods-badge.type {
+  background: #333;
+  color: #fff;
+}
+
+/* 発送予定 */
+.goods-badge.shipping {
+  background: #f1f1f1;
+  color: #555;
+}
 </style>
 </head>
 
@@ -3013,6 +3039,20 @@ fetch(goodsURL)
         </div>
 
         <div class="event-info">
+
+          <div class="goods-extra">
+
+            <span class="goods-badge type">
+              ${item.sale_type || ""}
+            </span>
+
+            ${item.shipping ? `
+              <span class="goods-badge shipping">
+                ${item.shipping}
+              </span>
+            ` : ""}
+
+          </div>
 
           <h3 class="event-title">${item.series}</h3>
 
