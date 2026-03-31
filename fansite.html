@@ -3905,7 +3905,8 @@ function renderNews(newsData, showAll = false, prefix = ""){
 
   const now = new Date();
 
-  let html = "";  // ← ここを変更（タイトル削除）
+  let html = "";
+  let count = 0; // ←追加
   
   newsData.forEach(item => {
 
@@ -3918,15 +3919,16 @@ function renderNews(newsData, showAll = false, prefix = ""){
       }
     }
 
-    // ★これ追加（超重要）
     if(isExpired && !showAll) return;
+
+    count++; // ←追加
 
     // ===== NEW判定 =====
     let isNew = false;
     if(item.start_date){
       const start = new Date(item.start_date);
       const diff = (now - start) / (1000 * 60 * 60 * 24);
-      if(diff <= 3) isNew = true; // 3日以内
+      if(diff <= 3) isNew = true;
     }
     
     html += `
@@ -3956,6 +3958,11 @@ function renderNews(newsData, showAll = false, prefix = ""){
       </div>
     `;
   });
+
+  // ★ここ追加（超重要）
+  if(count === 0 && !showAll){
+    return `<div class="no-event-message">表示するニュースがありません</div>`;
+  }
 
   return html;
 }
