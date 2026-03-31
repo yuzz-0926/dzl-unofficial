@@ -1904,6 +1904,13 @@ font-size:18px;
   background: #f1f1f1;
   color: #555;
 }
+
+.no-event-message {
+  text-align: center;
+  padding: 20px;
+  color: #777;
+  font-size: 14px;
+}
 </style>
 </head>
 
@@ -2955,6 +2962,15 @@ fetch(eventsURL).then(r=>r.text()).then(text=>{
     `;
 
     startCountdown(nearest.start_date);
+    
+  } else {
+
+    document.getElementById("latestEvent").innerHTML = `
+      <div class="no-event-message">
+        開催前のイベントがありません
+      </div>
+    `;
+
   }
 
   /* =========================
@@ -3001,6 +3017,15 @@ fetch(eventsURL).then(r=>r.text()).then(text=>{
     `;
 
     startEndingCountdown(nearestEnd.end_date);
+    
+  } else {
+
+    document.getElementById("endingSoonEvent").innerHTML = `
+      <div class="no-event-message">
+        開催中のイベントがありません
+      </div>
+    `;
+
   }
 
 });
