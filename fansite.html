@@ -3852,15 +3852,11 @@ async function loadAllLikes(){
 
 }
   
-async function sendLike(id){
-
-  await fetch(GAS_URL,{
-    method:"POST",
-    body:new URLSearchParams({id:id})
-  });
+function sendLike(id){
 
   const el = document.getElementById("like-count-"+id);
 
+  // ★① 先に増やす（これがポイント）
   if(el){
     el.innerText = parseInt(el.innerText) + 1;
   }
@@ -3869,9 +3865,15 @@ async function sendLike(id){
 
   if(btn){
     btn.classList.remove("liked");
-    void btn.offsetWidth; // ←再アニメーション用（超重要）
+    void btn.offsetWidth;
     btn.classList.add("liked");
   }
+
+  // ★② 後から送信（awaitなし）
+  fetch(GAS_URL,{
+    method:"POST",
+    body:new URLSearchParams({id:id})
+  });
 
 }
 
