@@ -3834,21 +3834,10 @@ async function loadAllLikes(){
 
     if(!id) return;
 
-    // ★① 元のID（これ重要）
     document.querySelectorAll(`#like-count-${id}`)
       .forEach(el => {
         el.innerText = data[id];
       });
-
-    // ★② prefix付き（ニュース用）
-    ["home_", "newsPage_"].forEach(prefix => {
-
-      document.querySelectorAll(`#like-count-${prefix + id}`)
-        .forEach(el => {
-          el.innerText = data[id];
-        });
-
-    });
 
   });
 
@@ -3884,18 +3873,16 @@ async function sendLike(id){
 
 }
 
-function createLikeButton(id, prefix = ""){
-
-  const uniqueId = prefix + id;
+function createLikeButton(id){
 
   return `
-    <button class="like-btn" data-like="${uniqueId}" onclick="sendLike('${uniqueId}')">
+    <button class="like-btn" data-like="${id}" onclick="sendLike('${id}')">
 
       <span class="material-symbols-outlined">
         thumb_up
       </span>
 
-      <span id="like-count-${uniqueId}">-</span>
+      <span id="like-count-${id}">-</span>
 
     </button>
   `;
@@ -3953,7 +3940,7 @@ function renderNews(newsData, showAll = false, prefix = ""){
           </a>
         ` : ""}
 
-        ${createLikeButton(item.id, prefix)}
+        ${showAll ? createLikeButton(item.id) : ""}
 
       </div>
     `;
