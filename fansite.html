@@ -3845,30 +3845,21 @@ async function loadAllLikes(){
   
 async function sendLike(id){
 
-  // すでに押してたら何もしない
-  if(localStorage.getItem("liked_"+id)){
-    return;
-  }
-
   await fetch(GAS_URL,{
     method:"POST",
     body:new URLSearchParams({id:id})
   });
 
-  // 押した履歴保存
-  localStorage.setItem("liked_"+id,true);
-
-  const el=document.getElementById("like-count-"+id);
+  const el = document.getElementById("like-count-"+id);
 
   if(el){
-    el.innerText=parseInt(el.innerText)+1;
+    el.innerText = parseInt(el.innerText) + 1;
   }
 
-  const btn=document.querySelector(`[data-like="${id}"]`);
+  const btn = document.querySelector(`[data-like="${id}"]`);
 
   if(btn){
     btn.classList.add("liked");
-    btn.disabled=true;   // ←追加
   }
 
 }
