@@ -1977,11 +1977,6 @@ font-size:18px;
           <span>グッズ</span>
         </button>
 
-        <button onclick="showSection('mylist');closeSidebarMobile()" data-section="mylist">
-          <span class="material-symbols-outlined">bookmark</span>
-          <span>マイリスト</span>
-        </button>
-
         <button onclick="showSection('news');closeSidebarMobile()" data-section="news">
           <span class="material-symbols-outlined">article</span>
           <span>ニュース</span>
@@ -1990,6 +1985,11 @@ font-size:18px;
         <button onclick="showSection('about');closeSidebarMobile()" data-section="about">
           <span class="material-symbols-outlined">menu_book</span>
           <span>ドズル社</span>
+        </button>
+
+        <button onclick="showSection('mylist');closeSidebarMobile()" data-section="mylist">
+          <span class="material-symbols-outlined">bookmark</span>
+          <span>マイリスト</span>
         </button>
 
         <hr>
@@ -2042,47 +2042,6 @@ font-size:18px;
 <div id="goods" class="section">
 <h2>グッズ情報</h2>
 <div id="goodsList"></div>
-</div>
-
-<div id="mylist" class="section">
-
-  <h2>マイリスト</h2>
-
-  <div class="mylist-type-tabs">
-    <button onclick="switchMyListType('event')" id="tab-event" class="active-type">
-      イベント
-    </button>
-    <button onclick="switchMyListType('goods')" id="tab-goods">
-      グッズ
-    </button>
-  </div>
-
-  <div class="filter-row">
-    <button class="filter-btn active"
-      onclick="filterMyList('all', this)">
-      すべて
-    </button>
-
-    <button class="filter-btn"
-      onclick="filterMyList('fav', this)">
-      お気に入り
-    </button>
-
-    <button class="filter-btn"
-      onclick="filterMyList('予定', this)">
-      <span id="filter-plan-label">参加予定</span>
-    </button>
-
-    <button class="filter-btn"
-      onclick="filterMyList('済', this)">
-      <span id="filter-done-label">参加済</span>
-    </button>
-  </div>
-
-  <p id="mylist-count"></p>
-
-  <div id="mylist-container"></div>
-
 </div>
 
 <div id="news" class="section">
@@ -2210,6 +2169,47 @@ font-size:18px;
   </div>
 </div>
 
+<div id="mylist" class="section">
+
+  <h2>マイリスト</h2>
+
+  <div class="mylist-type-tabs">
+    <button onclick="switchMyListType('event')" id="tab-event" class="active-type">
+      イベント
+    </button>
+    <button onclick="switchMyListType('goods')" id="tab-goods">
+      グッズ
+    </button>
+  </div>
+
+  <div class="filter-row">
+    <button class="filter-btn active"
+      onclick="filterMyList('all', this)">
+      すべて
+    </button>
+
+    <button class="filter-btn"
+      onclick="filterMyList('fav', this)">
+      お気に入り
+    </button>
+
+    <button class="filter-btn"
+      onclick="filterMyList('予定', this)">
+      <span id="filter-plan-label">参加予定</span>
+    </button>
+
+    <button class="filter-btn"
+      onclick="filterMyList('済', this)">
+      <span id="filter-done-label">参加済</span>
+    </button>
+  </div>
+
+  <p id="mylist-count"></p>
+
+  <div id="mylist-container"></div>
+
+</div>
+
 <div id="guide" class="section">
 
 <h2>
@@ -2272,15 +2272,6 @@ font-size:18px;
 </div>
 
 <div class="feature-card">
-<h3><span class="material-symbols-outlined">person</span> マイリストページ</h3>
-<p><strong>◆ マイリスト</strong></p>
-<p>自分が登録したイベント・グッズが一覧表示されます。</p>
-<p>
-ボタンを押すと、イベント・グッズ・お気に入りなどのフィルターをかけることができます。
-</p>
-</div>
-
-<div class="feature-card">
 <h3><span class="material-symbols-outlined">feed</span> ニュースページ</h3>
 <p><strong>◆ ニュースアーカイブ</strong></p>
 <p>ホーム画面に表示されているニュースのアーカイブが一覧表示されます。</p>
@@ -2289,22 +2280,33 @@ font-size:18px;
 
 <div class="feature-card">
 <h3><span class="material-symbols-outlined">menu_book</span> ドズル社ページ</h3>
-<p><strong>Aboutタブ</strong></p>
+  
+<p><strong>◆ About</strong></p>
 <p>このページは現在作成中です。</p>
 
-<p><strong>Memberタブ</strong></p>
+<p><strong>◆ Member</strong></p>
 <p>このページは現在作成中です。</p>
 
-<p><strong>Portalタブ</strong></p>
+<p><strong>◆ Portal</strong></p>
 <p>このページは現在作成中です。</p>
 
-<p><strong>Channelタブ</strong></p>
+<p><strong>◆ Channel</strong></p>
 <p>ドズル社チャンネルとメンバー個人チャンネルの登録者数・動画本数・総再生回数が表示されます。</p>
 <p>メンバー個人チャンネルの数値は5チャンネルの合計を表示しています。</p>
 <p>YouTube APIを使用し、公開されている数値を自動取得しています。数値は1日1回更新されます。</p>
 
-<p><strong>Historyタブ</strong></p>
+<p><strong>◆ History</strong></p>
 <p>このページは現在作成中です。</p>
+  
+</div>
+
+<div class="feature-card">
+<h3><span class="material-symbols-outlined">person</span> マイリストページ</h3>
+<p><strong>◆ マイリスト</strong></p>
+<p>自分が登録したイベント・グッズが一覧表示されます。</p>
+<p>
+ボタンを押すと、イベント・グッズ・お気に入りなどのフィルターをかけることができます。
+</p>
 </div>
 
 <div class="feature-card">
