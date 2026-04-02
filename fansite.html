@@ -1579,6 +1579,7 @@ box-shadow:0 2px 8px rgba(0,0,0,0.05);
 font-size:18px;
 }
 
+/* ===== パソコン版いいねボタン ===== */
 @media (min-width: 768px){
 
   .like-btn{
@@ -1586,6 +1587,29 @@ font-size:18px;
     top: 18px;
     right: 18px;
     z-index: 10;
+  }
+
+}
+
+/* ===== スマホ版いいねボタン ===== */
+@media (max-width: 767px){
+
+  /* ===== ランダム（左下） ===== */
+  .random-card .like-btn{
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    top: auto;
+    right: auto;
+  }
+
+  /* ===== ニュース（右上） ===== */
+  .news-card .like-btn{
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    bottom: auto;
+    left: auto;
   }
 
 }
