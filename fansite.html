@@ -2036,6 +2036,11 @@ font-size:18px;
           <span>使い方</span>
         </button>
 
+        <button onclick="showSection('policy');closeSidebarMobile()" data-section="policy">
+          <span class="material-symbols-outlined">policy</span>
+          <span>ポリシー</span>
+        </button>
+
         <button onclick="showSection('contact');closeSidebarMobile()" data-section="contact">
           <span class="material-symbols-outlined">mail</span>
           <span>お問い合わせ・感想</span>
@@ -2358,9 +2363,11 @@ font-size:18px;
 <p>お問い合わせフォームからアイデアを募集しています。</p>
 </div>
 
-<h2>
-  プライバシーポリシー
-</h2>
+</div>
+
+<div id="policy" class="section">
+
+<h2>プライバシーポリシー</h2>
 
 <div class="guide-box">
 <p><strong>【アクセス解析ツールについて】</strong></p>
@@ -2374,10 +2381,8 @@ font-size:18px;
 この規約に関しての詳細はGoogleアナリティクスサービス利用規約のページやGoogleポリシーと規約ページをご覧ください。
 </p>
 </div>
-  
-<h2>
-  注意事項
-</h2>
+
+<h2>注意事項</h2>
 
 <div class="guide-box">
 <p><strong>【サイトについて】</strong></p>
@@ -2413,6 +2418,7 @@ font-size:18px;
 </div>
 
 </div>
+  
 <div id="contact" class="section">
 <h2>お問い合わせ・感想</h2>
 
@@ -2463,10 +2469,19 @@ font-size:18px;
 <footer class="main-footer">
 こちらのサイトは非公式ファンサイトです。<br>
 イベント・グッズ情報などは手動で追加しています。<br>
-最新・詳細情報はドズル社公式サイト(https://www.dozle.jp/)をご覧ください。<br><br>
+最新・詳細情報はドズル社公式サイト(https://www.dozle.jp/)をご覧ください。
+<br><br>
 掲載している名称・画像等の権利は各権利者様に帰属します。<br>
 問題がある場合は削除等対応いたします。<br>
 お問い合わせ・感想・不具合などは「お問い合わせ・感想ページ」からお願いします。
+
+<p style="margin-top:12px;">
+  本サイトをご利用の前に
+  <a href="#" onclick="showSection('policy')" style="text-decoration:underline;">
+    プライバシーポリシー・注意事項
+  </a>
+  をご確認ください。
+</p>
 </footer>
 
 <script>
