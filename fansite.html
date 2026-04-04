@@ -753,8 +753,8 @@ box-shadow:0 2px 8px rgba(0,0,0,0.05);
   transform:translateX(0);
   transition:transform 0.3s ease;
 
-  max-geight:100vh;
-  overflow-y:auto;
+  max-height:100vh;
+  overflow:hidden;
   -webkit-overflow-scrolling: touch;
   padding-bottom: 20px;
 }
@@ -763,6 +763,8 @@ box-shadow:0 2px 8px rgba(0,0,0,0.05);
   display:flex;
   flex-direction:column;
   height:100%;
+  overflow:hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
 .sidebar-nav{
@@ -825,7 +827,7 @@ box-shadow:0 2px 8px rgba(0,0,0,0.05);
 
   .sidebar{
     top:64px;   /* ← ここを修正 */
-    height:100vh;
+    height:calc(100vh - 64px); /* ← 統一 */
   }
 
   #mainContent{
