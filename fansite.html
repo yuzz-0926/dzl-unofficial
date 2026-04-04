@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap" rel="stylesheet">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>【非公式】ドズル社データベース</title>
@@ -4306,7 +4307,46 @@ function openCardTool(){
 
     </div>
 
+    <canvas id="cardCanvas" width="2000" height="1126" style="width:100%; max-width:600px; border:1px solid #ccc;"></canvas>
+
   `;
+
+  drawCanvas();
+}
+
+function drawCanvas(){
+
+  const canvas = document.getElementById("cardCanvas");
+  if(!canvas) return;
+
+  const ctx = canvas.getContext("2d");
+
+  // 背景画像
+  const img = new Image();
+  img.src = `bg${cardState.bg}.jpg`;
+
+  img.onload = function(){
+
+    // 背景描画
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.drawImage(img, 0, 0, 2000, 1126);
+
+    // フォント設定
+    ctx.fillStyle = "#000";
+    ctx.font = "48px 'M PLUS Rounded 1c'";
+
+    // --- テキスト描画 ---
+    drawText(ctx, cardState.creator, 300, 200, 1200);
+    drawText(ctx, cardState.oshi, 300, 300, 1200);
+    drawText(ctx, cardState.history, 300, 400, 1200);
+    drawText(ctx, cardState.pair, 300, 500, 1200);
+
+    drawMultilineText(ctx, cardState.reason, 300, 600, 1200, 60);
+    drawMultilineText(ctx, cardState.video, 300, 800, 1200, 60);
+
+    drawText(ctx, cardState.character, 300, 950, 1200);
+    drawText(ctx, cardState.series, 300, 1050, 1200);
+  };
 }
   
 function updateState(){
@@ -4326,6 +4366,34 @@ function updateState(){
 function selectBg(num){
   cardState.bg = num;
   drawCanvas();
+}
+
+function drawText(ctx, text, x, y, maxWidth){
+  ctx.fillText(text || "", x, y, maxWidth);
+}
+
+function drawMultilineText(ctx, text, x, y, maxWidth, lineHeight){
+
+  if(!text) return;
+
+  const chars = text.split("");
+  let line = "";
+  let currentY = y;
+
+  for(let i=0; i<chars.length; i++){
+    const testLine = line + chars[i];
+    const metrics = ctx.measureText(testLine);
+
+    if(metrics.width > maxWidth){
+      ctx.fillText(line, x, currentY);
+      line = chars[i];
+      currentY += lineHeight;
+    }else{
+      line = testLine;
+    }
+  }
+
+  ctx.fillText(line, x, currentY);
 }
   
 loadNews();
