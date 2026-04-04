@@ -4286,7 +4286,7 @@ function openCardTool(){
 
         <!-- 背景選択 -->
         <div class="form-group">
-          <label>背景を選択</label>
+          <h3>背景を選択</h3>
 
           <select onchange="selectBg(this.value)">
             <option value="1">ドズルカラー</option>
@@ -4322,6 +4322,7 @@ function openCardTool(){
 
         <div class="form-group">
           <label>好きなペア</label>
+          <small>選択式</small>
           <select id="pair" onchange="updateState()">
             <option value="">選択してください</option>
             <option>ドズ🦍ぼん🍆</option>
@@ -4350,13 +4351,13 @@ function openCardTool(){
 
         <div class="form-group">
           <label>好きなところ・きっかけ</label>
-          <small>長文OK</small>
+          <small>長文OK・改行はスペースで</small>
           <textarea id="reason" oninput="updateState()"></textarea>
         </div>
 
         <div class="form-group">
           <label>好きな動画</label>
-          <small>長文OK</small>
+          <small>自由入力・コピペ推奨</small>
           <textarea id="video" oninput="updateState()"></textarea>
         </div>
 
