@@ -754,16 +754,18 @@ box-shadow:0 2px 8px rgba(0,0,0,0.05);
   transition:transform 0.3s ease;
 
   max-height:100vh;
-  overflow:hidden;
+  overflow-y:auto;
+  -webkit-overflow-scrolling: touch;
   padding-bottom: 20px;
+}
+
+.sidebar::-webkit-scrollbar{
+  display: none;
 }
 
 .sidebar-inner{
   display:flex;
   flex-direction:column;
-  height:100%;
-  overflow-y:auto;
-  -webkit-overflow-scrolling: touch;
 }
 
 .sidebar-nav{
