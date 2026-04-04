@@ -4312,6 +4312,26 @@ function openCardTool(){
 
   `;
 
+  // 🔥 ここから追加
+  const saved = localStorage.getItem("cardData");
+
+  if(saved){
+    const data = JSON.parse(saved);
+
+    // 上書き
+    Object.assign(cardState, data);
+
+    // 入力欄に反映
+    document.getElementById("creator").value = cardState.creator || "";
+    document.getElementById("oshi").value = cardState.oshi || "";
+    document.getElementById("history").value = cardState.history || "";
+    document.getElementById("pair").value = cardState.pair || "";
+    document.getElementById("reason").value = cardState.reason || "";
+    document.getElementById("video").value = cardState.video || "";
+    document.getElementById("character").value = cardState.character || "";
+    document.getElementById("series").value = cardState.series || "";
+  }
+
   drawCanvas();
 }
 
@@ -4338,16 +4358,18 @@ function drawCanvas(){
     // --- テキスト描画 ---
     ctx.font = "bold 65px 'M PLUS Rounded 1c'";
     drawText(ctx, cardState.creator, 1314, 95, 1200);
-    
+
+    ctx.textAlign = "center";
     ctx.font = "bold 65px 'M PLUS Rounded 1c'";
-    drawText(ctx, cardState.oshi, 712, 217, 1200);
+    drawText(ctx, cardState.oshi, 1112, 217, 1200);
 
     ctx.font = "bold 60px 'M PLUS Rounded 1c'";
-    drawText(ctx, cardState.history, 428, 369, 1200);
+    drawText(ctx, cardState.history, 728, 369, 1200);
 
     ctx.font = "bold 60px 'M PLUS Rounded 1c'";
-    drawText(ctx, cardState.pair, 1257, 369, 1200);
+    drawText(ctx, cardState.pair, 1557, 369, 1200);
 
+    ctx.textAlign = "left";
     ctx.font = "bold 45px 'M PLUS Rounded 1c'";
     drawMultilineText(ctx, cardState.reason, 105, 569, 666, 70);
 
@@ -4412,27 +4434,6 @@ function drawMultilineText(ctx, text, x, y, maxWidth, lineHeight){
 
   ctx.fillText(line, x, currentY);
 }
-
-window.onload = function(){
-
-  const saved = localStorage.getItem("cardData");
-
-  if(saved){
-    cardState = JSON.parse(saved);
-
-    // 入力欄に反映
-    document.getElementById("creator").value = cardState.creator || "";
-    document.getElementById("oshi").value = cardState.oshi || "";
-    document.getElementById("history").value = cardState.history || "";
-    document.getElementById("pair").value = cardState.pair || "";
-    document.getElementById("reason").value = cardState.reason || "";
-    document.getElementById("video").value = cardState.video || "";
-    document.getElementById("character").value = cardState.character || "";
-    document.getElementById("series").value = cardState.series || "";
-
-    drawCanvas();
-  }
-};
   
 loadNews();
 loadTodayContent();
