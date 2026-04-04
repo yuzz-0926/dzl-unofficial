@@ -4336,29 +4336,29 @@ function drawCanvas(){
     ctx.fillStyle = "#000";
 
     // --- テキスト描画 ---
-    ctx.font = "60px 'M PLUS Rounded 1c'";
-    drawText(ctx, cardState.creator, 1319, 105, 1200);
+    ctx.font = "65px 'M PLUS Rounded 1c'";
+    drawText(ctx, cardState.creator, 1314, 95, 1200);
     
+    ctx.font = "65px 'M PLUS Rounded 1c'";
+    drawText(ctx, cardState.oshi, 712, 217, 1200);
+
     ctx.font = "60px 'M PLUS Rounded 1c'";
-    drawText(ctx, cardState.oshi, 722, 227, 1200);
+    drawText(ctx, cardState.history, 428, 369, 1200);
+
+    ctx.font = "60px 'M PLUS Rounded 1c'";
+    drawText(ctx, cardState.pair, 1257, 369, 1200);
+
+    ctx.font = "45px 'M PLUS Rounded 1c'";
+    drawMultilineText(ctx, cardState.reason, 105, 569, 666, 70);
+
+    ctx.font = "45px 'M PLUS Rounded 1c'";
+    drawMultilineText(ctx, cardState.video, 903, 564, 1000, 70);
 
     ctx.font = "50px 'M PLUS Rounded 1c'";
-    drawText(ctx, cardState.history, 428, 379, 1200);
+    drawText(ctx, cardState.character, 903, 827, 1200);
 
     ctx.font = "50px 'M PLUS Rounded 1c'";
-    drawText(ctx, cardState.pair, 1257, 379, 1200);
-
-    ctx.font = "44px 'M PLUS Rounded 1c'";
-    drawMultilineText(ctx, cardState.reason, 115, 569, 1000, 70);
-
-    ctx.font = "44px 'M PLUS Rounded 1c'";
-    drawMultilineText(ctx, cardState.video, 908, 569, 1000, 70);
-
-    ctx.font = "50px 'M PLUS Rounded 1c'";
-    drawText(ctx, cardState.character, 908, 837, 1200);
-
-    ctx.font = "50px 'M PLUS Rounded 1c'";
-    drawText(ctx, cardState.series, 908, 1054, 1200);
+    drawText(ctx, cardState.series, 903, 1044, 1200);
 
   };
 }
