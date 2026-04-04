@@ -4336,34 +4336,35 @@ function drawCanvas(){
     ctx.fillStyle = "#000";
 
     // --- テキスト描画 ---
-    ctx.font = "65px 'M PLUS Rounded 1c'";
+    ctx.font = "bold 65px 'M PLUS Rounded 1c'";
     drawText(ctx, cardState.creator, 1314, 95, 1200);
     
-    ctx.font = "65px 'M PLUS Rounded 1c'";
+    ctx.font = "bold 65px 'M PLUS Rounded 1c'";
     drawText(ctx, cardState.oshi, 712, 217, 1200);
 
-    ctx.font = "60px 'M PLUS Rounded 1c'";
+    ctx.font = "bold 60px 'M PLUS Rounded 1c'";
     drawText(ctx, cardState.history, 428, 369, 1200);
 
-    ctx.font = "60px 'M PLUS Rounded 1c'";
+    ctx.font = "bold 60px 'M PLUS Rounded 1c'";
     drawText(ctx, cardState.pair, 1257, 369, 1200);
 
-    ctx.font = "45px 'M PLUS Rounded 1c'";
+    ctx.font = "bold 45px 'M PLUS Rounded 1c'";
     drawMultilineText(ctx, cardState.reason, 105, 569, 666, 70);
 
-    ctx.font = "45px 'M PLUS Rounded 1c'";
+    ctx.font = "bold 45px 'M PLUS Rounded 1c'";
     drawMultilineText(ctx, cardState.video, 903, 564, 1000, 70);
 
-    ctx.font = "50px 'M PLUS Rounded 1c'";
+    ctx.font = "bold 50px 'M PLUS Rounded 1c'";
     drawText(ctx, cardState.character, 903, 827, 1200);
 
-    ctx.font = "50px 'M PLUS Rounded 1c'";
+    ctx.font = "bold 50px 'M PLUS Rounded 1c'";
     drawText(ctx, cardState.series, 903, 1044, 1200);
 
   };
 }
   
 function updateState(){
+
   cardState.creator = document.getElementById("creator").value;
   cardState.oshi = document.getElementById("oshi").value;
   cardState.history = document.getElementById("history").value;
@@ -4373,7 +4374,9 @@ function updateState(){
   cardState.character = document.getElementById("character").value;
   cardState.series = document.getElementById("series").value;
 
-  // 次でcanvas更新する
+  // 🔥 追加（保存）
+  localStorage.setItem("cardData", JSON.stringify(cardState));
+
   drawCanvas();
 }
 
@@ -4409,6 +4412,27 @@ function drawMultilineText(ctx, text, x, y, maxWidth, lineHeight){
 
   ctx.fillText(line, x, currentY);
 }
+
+window.onload = function(){
+
+  const saved = localStorage.getItem("cardData");
+
+  if(saved){
+    cardState = JSON.parse(saved);
+
+    // 入力欄に反映
+    document.getElementById("creator").value = cardState.creator || "";
+    document.getElementById("oshi").value = cardState.oshi || "";
+    document.getElementById("history").value = cardState.history || "";
+    document.getElementById("pair").value = cardState.pair || "";
+    document.getElementById("reason").value = cardState.reason || "";
+    document.getElementById("video").value = cardState.video || "";
+    document.getElementById("character").value = cardState.character || "";
+    document.getElementById("series").value = cardState.series || "";
+
+    drawCanvas();
+  }
+};
   
 loadNews();
 loadTodayContent();
