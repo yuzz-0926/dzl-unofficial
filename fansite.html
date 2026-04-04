@@ -2054,6 +2054,85 @@ font-size:18px;
     width:100%;
   }
 }
+
+/* デフォルト（PC） */
+#cardCanvas{
+  width:100%;
+  max-width:600px;
+}
+
+/* スマホだけフル幅 */
+@media (max-width: 768px){
+
+  #cardCanvas{
+    width:100%;
+    max-width:none;
+  }
+
+  .card-right{
+    width:100%;
+  }
+
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+  width:100%;
+  padding:10px 12px;
+  margin-top:5px;
+  border-radius:10px;
+  border:1px solid #ccc;
+  font-size:14px;
+  background:#fff;
+  transition:0.2s;
+}
+
+/* フォーカス時 */
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus{
+  outline:none;
+  border:1px solid #000;
+  box-shadow:0 0 0 2px rgba(0,0,0,0.1);
+}
+
+.form-group textarea{
+  min-height:100px;
+  resize:vertical;
+}
+
+.form-group{
+  margin-bottom:18px;
+}
+
+.form-group label{
+  font-weight:bold;
+  display:block;
+}
+
+.form-group small{
+  display:block;
+  font-size:12px;
+  color:#666;
+  margin-top:2px;
+}
+
+.card-left h3,
+.card-right h3{
+  font-size:18px;
+  margin-bottom:10px;
+  border-left:5px solid #000;
+  padding-left:10px;
+}
+
+.card-left,
+.card-right{
+  background:#fff;
+  padding:15px;
+  border-radius:12px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
   
 </style>
 </head>
