@@ -2098,7 +2098,7 @@ font-size:18px;
 }
 
 .form-group textarea{
-  min-height:100px;
+  min-height:50px;
   resize:vertical;
 }
 
@@ -4367,14 +4367,14 @@ function openCardTool(){
         <div class="form-group">
           <h3>背景を選択</h3>
 
-          <select onchange="selectBg(this.value)">
+          <select onchange="selectBg(this.value)" id="bgSelect">
             <option value="1">ドズルカラー</option>
             <option value="2">ぼんじゅうるカラー</option>
             <option value="3">おんりーカラー</option>
             <option value="4">おらふくんカラー</option>
             <option value="5">MENカラー</option>
-            <option value="6">集合①</option>
-            <option value="7">集合②</option>
+            <option value="6">集合① (黒)</option>
+            <option value="7">集合② (カラフル)</option>
           </select>
 
         </div>
@@ -4489,19 +4489,21 @@ function openCardTool(){
   if(saved){
     const data = JSON.parse(saved);
 
-    // 上書き
     Object.assign(cardState, data);
-
-    // 入力欄に反映
-    document.getElementById("creator").value = cardState.creator || "";
-    document.getElementById("oshi").value = cardState.oshi || "";
-    document.getElementById("history").value = cardState.history || "";
-    document.getElementById("pair").value = cardState.pair || "";
-    document.getElementById("reason").value = cardState.reason || "";
-    document.getElementById("video").value = cardState.video || "";
-    document.getElementById("character").value = cardState.character || "";
-    document.getElementById("series").value = cardState.series || "";
   }
+
+  // 🔥 ここが超重要（外に出す）
+  document.getElementById("bgSelect").value = cardState.bg;
+
+  // 入力欄に反映
+  document.getElementById("creator").value = cardState.creator || "";
+  document.getElementById("oshi").value = cardState.oshi || "";
+  document.getElementById("history").value = cardState.history || "";
+  document.getElementById("pair").value = cardState.pair || "";
+  document.getElementById("reason").value = cardState.reason || "";
+  document.getElementById("video").value = cardState.video || "";
+  document.getElementById("character").value = cardState.character || "";
+  document.getElementById("series").value = cardState.series || "";
 
   drawCanvas();
 }
@@ -4574,7 +4576,11 @@ function updateState(){
 }
 
 function selectBg(num){
-  cardState.bg = num;
+  cardState.bg = Number(num);
+
+  // 🔥 追加（保存）
+  localStorage.setItem("cardData", JSON.stringify(cardState));
+
   drawCanvas();
 }
 
