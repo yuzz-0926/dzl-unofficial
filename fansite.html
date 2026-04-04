@@ -4333,13 +4333,7 @@ function drawCanvas(){
 
     // フォント設定
     ctx.fillStyle = "#000";
-    // 通常
     ctx.font = "56px 'M PLUS Rounded 1c'";
-    drawText(...);
-
-    // 長文だけ小さく
-    ctx.font = "46px 'M PLUS Rounded 1c'";
-    drawMultilineText(...);
 
     // --- テキスト描画 ---
     drawText(ctx, cardState.creator, 1319, 105, 1200);
