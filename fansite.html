@@ -4333,19 +4333,32 @@ function drawCanvas(){
 
     // フォント設定
     ctx.fillStyle = "#000";
-    ctx.font = "56px 'M PLUS Rounded 1c'";
 
     // --- テキスト描画 ---
+    ctx.font = "60px 'M PLUS Rounded 1c'";
     drawText(ctx, cardState.creator, 1319, 105, 1200);
+    
+    ctx.font = "60px 'M PLUS Rounded 1c'";
     drawText(ctx, cardState.oshi, 722, 227, 1200);
+
+    ctx.font = "50px 'M PLUS Rounded 1c'";
     drawText(ctx, cardState.history, 428, 379, 1200);
+
+    ctx.font = "50px 'M PLUS Rounded 1c'";
     drawText(ctx, cardState.pair, 1257, 379, 1200);
 
+    ctx.font = "44px 'M PLUS Rounded 1c'";
     drawMultilineText(ctx, cardState.reason, 115, 569, 1000, 70);
+
+    ctx.font = "44px 'M PLUS Rounded 1c'";
     drawMultilineText(ctx, cardState.video, 908, 569, 1000, 70);
 
+    ctx.font = "50px 'M PLUS Rounded 1c'";
     drawText(ctx, cardState.character, 908, 837, 1200);
+
+    ctx.font = "50px 'M PLUS Rounded 1c'";
     drawText(ctx, cardState.series, 908, 1054, 1200);
+
   };
 }
   
