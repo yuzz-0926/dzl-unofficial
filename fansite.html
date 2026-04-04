@@ -2001,6 +2001,29 @@ font-size:18px;
   font-size: 11px;
   color: #666;
 }
+
+.card-btn{
+  display:block;
+  width:100%;
+  max-width:400px;
+  margin:15px auto;
+  padding:12px;
+  font-size:16px;
+  font-weight:bold;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  background:#000;
+  color:#fff;
+}
+
+.card-btn:hover{
+  opacity:0.8;
+}
+
+.x-btn{
+  background:#1DA1F2;
+}
   
 </style>
 </head>
@@ -4310,6 +4333,14 @@ function openCardTool(){
 
     <canvas id="cardCanvas" width="2000" height="1126" style="width:100%; max-width:600px; border:1px solid #ccc;"></canvas>
 
+    <button onclick="downloadCard()" class="card-btn">
+      画像を保存する
+    </button>
+
+    <button onclick="shareToX()" class="card-btn x-btn">
+      Xに投稿する
+    </button>
+
   `;
 
   // 🔥 ここから追加
@@ -4433,6 +4464,28 @@ function drawMultilineText(ctx, text, x, y, maxWidth, lineHeight){
   }
 
   ctx.fillText(line, x, currentY);
+}
+
+function downloadCard(){
+
+  const canvas = document.getElementById("cardCanvas");
+
+  const link = document.createElement("a");
+  link.download = "ドズル社自己紹介カード.png";
+  link.href = canvas.toDataURL("image/png");
+
+  link.click();
+}
+
+function shareToX(){
+
+  const text = `非公式ファンサイトでドズル社自己紹介カードを作成しました！
+https://yuzz-0926.github.io/dzl-unofficial/fansite.html
+#ドズル社 #ドズル社データベース`;
+
+  const url = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(text);
+
+  window.open(url, "_blank");
 }
   
 loadNews();
