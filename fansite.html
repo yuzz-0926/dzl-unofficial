@@ -4333,19 +4333,25 @@ function drawCanvas(){
 
     // フォント設定
     ctx.fillStyle = "#000";
-    ctx.font = "48px 'M PLUS Rounded 1c'";
+    // 通常
+    ctx.font = "56px 'M PLUS Rounded 1c'";
+    drawText(...);
+
+    // 長文だけ小さく
+    ctx.font = "46px 'M PLUS Rounded 1c'";
+    drawMultilineText(...);
 
     // --- テキスト描画 ---
-    drawText(ctx, cardState.creator, 1319, 75, 1200);
-    drawText(ctx, cardState.oshi, 722, 197, 1200);
-    drawText(ctx, cardState.history, 428, 349, 1200);
-    drawText(ctx, cardState.pair, 1257, 348, 1200);
+    drawText(ctx, cardState.creator, 1319, 105, 1200);
+    drawText(ctx, cardState.oshi, 722, 227, 1200);
+    drawText(ctx, cardState.history, 428, 379, 1200);
+    drawText(ctx, cardState.pair, 1257, 379, 1200);
 
-    drawMultilineText(ctx, cardState.reason, 115, 549, 1200, 60);
-    drawMultilineText(ctx, cardState.video, 908, 549, 1200, 60);
+    drawMultilineText(ctx, cardState.reason, 115, 569, 1000, 70);
+    drawMultilineText(ctx, cardState.video, 908, 569, 1000, 70);
 
-    drawText(ctx, cardState.character, 908, 807, 1200);
-    drawText(ctx, cardState.series, 908, 1024, 1200);
+    drawText(ctx, cardState.character, 908, 837, 1200);
+    drawText(ctx, cardState.series, 908, 1054, 1200);
   };
 }
   
