@@ -2024,6 +2024,36 @@ font-size:18px;
 .x-btn{
   background:#1DA1F2;
 }
+
+.card-note{
+  font-size:12px;
+  color:#555;
+  text-align:center;
+  margin-top:5px;
+  margin-bottom:10px;
+}
+
+/* PC用 */
+@media (min-width: 900px){
+
+  .card-tool-wrap{
+    display:flex;
+    gap:30px;
+    align-items:flex-start;
+  }
+
+  .card-left{
+    width:45%;
+  }
+
+  .card-right{
+    width:55%;
+  }
+
+  #cardCanvas{
+    width:100%;
+  }
+}
   
 </style>
 </head>
@@ -4249,97 +4279,127 @@ function openCardTool(){
 
   area.innerHTML = `
 
-    <div class="card-tool">
+    <div class="card-tool-wrap">
 
-      <!-- 背景選択 -->
-      <h3>背景を選択</h3>
-      <div class="bg-select">
-        ${[1,2,3,4,5,6,7].map(i => `
-          <img src="bg${i}.jpg" class="bg-thumb" onclick="selectBg(${i})">
-        `).join("")}
+      <!-- 左 -->
+      <div class="card-left">
+
+        <!-- 背景選択 -->
+        <div class="form-group">
+          <label>背景を選択</label>
+
+          <select onchange="selectBg(this.value)">
+            <option value="1">ドズルカラー</option>
+            <option value="2">ぼんじゅうるカラー</option>
+            <option value="3">おんりーカラー</option>
+            <option value="4">おらふくんカラー</option>
+            <option value="5">MENカラー</option>
+            <option value="6">集合①</option>
+            <option value="7">集合②</option>
+          </select>
+
+        </div>
+
+        <!-- 入力フォーム -->
+        <h3>情報を入力</h3>
+        
+        <div class="form-group">
+          <label>作成者</label>
+          <small>名前やIDなど</small>
+          <input type="text" id="creator" oninput="updateState()">
+        </div>
+
+        <div class="form-group">
+          <label>推し</label>
+          <small>複数OK・自由入力</small>
+          <input type="text" id="oshi" oninput="updateState()">
+        </div>
+
+        <div class="form-group">
+          <label>推し歴</label>
+          <input type="text" id="history" oninput="updateState()">
+        </div>
+
+        <div class="form-group">
+          <label>好きなペア</label>
+          <select id="pair" onchange="updateState()">
+            <option value="">選択してください</option>
+            <option>ドズ🦍ぼん🍆</option>
+            <option>ドズ🦍おん🍌</option>
+            <option>ドズ🦍おら☃️</option>
+            <option>ドズ🦍MEN🐷</option>
+            <option>ぼん🍆おん🍌</option>
+            <option>ぼん🍆おら☃️</option>
+            <option>ぼん🍆MEN🐷</option>
+            <option>おん🍌おら☃️</option>
+            <option>おん🍌MEN🐷</option>
+            <option>おら☃️MEN🐷</option>
+            <option>ドズ🦍ぼん🍆おん🍌</option>
+            <option>ドズ🦍ぼん🍆おら☃️</option>
+            <option>ドズ🦍ぼん🍆MEN🐷</option>
+            <option>ドズ🦍おん🍌おら☃️</option>
+            <option>ドズ🦍おん🍌MEN🐷</option>
+            <option>ドズ🦍おら☃️MEN🐷</option>
+            <option>ぼん🍆おん🍌おら☃️</option>
+            <option>ぼん🍆おん🍌MEN🐷</option>
+            <option>ぼん🍆おら☃️MEN🐷</option>
+            <option>おん🍌おら☃️MEN🐷</option>
+            <option>ぼん🍆おら☃️ネコ😼</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>好きなところ・きっかけ</label>
+          <small>長文OK</small>
+          <textarea id="reason" oninput="updateState()"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>好きな動画</label>
+          <small>長文OK</small>
+          <textarea id="video" oninput="updateState()"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>好きなキャラ</label>
+          <input type="text" id="character" oninput="updateState()">
+        </div>
+
+        <div class="form-group">
+          <label>好きなシリーズ</label>
+          <input type="text" id="series" oninput="updateState()">
+        </div>
+
       </div>
 
-      <!-- 入力フォーム -->
-      <h3>情報を入力</h3>
+      <!-- 右 -->
+      <div class="card-right">
 
-      <div class="form-group">
-        <label>作成者</label>
-        <small>名前やIDなど</small>
-        <input type="text" id="creator" oninput="updateState()">
-      </div>
+        <h3>プレビュー</h3>
 
-      <div class="form-group">
-        <label>推し</label>
-        <small>複数OK・自由入力</small>
-        <input type="text" id="oshi" oninput="updateState()">
-      </div>
+        <canvas id="cardCanvas" width="2000" height="1126"></canvas>
 
-      <div class="form-group">
-        <label>推し歴</label>
-        <input type="text" id="history" oninput="updateState()">
-      </div>
+        <div class="card-actions">
 
-      <div class="form-group">
-        <label>好きなペア</label>
-        <select id="pair" onchange="updateState()">
-          <option value="">選択してください</option>
-          <option>ドズ🦍ぼん🍆</option>
-          <option>ドズ🦍おん🍌</option>
-          <option>ドズ🦍おら☃️</option>
-          <option>ドズ🦍MEN🐷</option>
-          <option>ぼん🍆おん🍌</option>
-          <option>ぼん🍆おら☃️</option>
-          <option>ぼん🍆MEN🐷</option>
-          <option>おん🍌おら☃️</option>
-          <option>おん🍌MEN🐷</option>
-          <option>おら☃️MEN🐷</option>
-          <option>ドズ🦍ぼん🍆おん🍌</option>
-          <option>ドズ🦍ぼん🍆おら☃️</option>
-          <option>ドズ🦍ぼん🍆MEN🐷</option>
-          <option>ドズ🦍おん🍌おら☃️</option>
-          <option>ドズ🦍おん🍌MEN🐷</option>
-          <option>ドズ🦍おら☃️MEN🐷</option>
-          <option>ぼん🍆おん🍌おら☃️</option>
-          <option>ぼん🍆おん🍌MEN🐷</option>
-          <option>ぼん🍆おら☃️MEN🐷</option>
-          <option>おん🍌おら☃️MEN🐷</option>
-          <option>ぼん🍆おら☃️ネコ😼</option>
-        </select>
-      </div>
+          <button onclick="downloadCard()" class="card-btn">
+            画像を保存する
+          </button>
+          <p class="card-note">
+            作成したカードを画像として保存できます
+          </p>
 
-      <div class="form-group">
-        <label>好きなところ・きっかけ</label>
-        <small>長文OK</small>
-        <textarea id="reason" oninput="updateState()"></textarea>
-      </div>
+          <button onclick="shareToX()" class="card-btn x-btn">
+            Xに投稿する
+          </button>
+          <p class="card-note">
+            投稿画面が開きます。画像は手動で添付してください
+          </p>
 
-      <div class="form-group">
-        <label>好きな動画</label>
-        <small>長文OK</small>
-        <textarea id="video" oninput="updateState()"></textarea>
-      </div>
+        </div>
 
-      <div class="form-group">
-        <label>好きなキャラ</label>
-        <input type="text" id="character" oninput="updateState()">
-      </div>
-
-      <div class="form-group">
-        <label>好きなシリーズ</label>
-        <input type="text" id="series" oninput="updateState()">
       </div>
 
     </div>
-
-    <canvas id="cardCanvas" width="2000" height="1126" style="width:100%; max-width:600px; border:1px solid #ccc;"></canvas>
-
-    <button onclick="downloadCard()" class="card-btn">
-      画像を保存する
-    </button>
-
-    <button onclick="shareToX()" class="card-btn x-btn">
-      Xに投稿する
-    </button>
 
   `;
 
